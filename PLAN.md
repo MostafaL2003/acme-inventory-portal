@@ -32,9 +32,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Build `SidebarNav.tsx` using `NavLink` from `react-router-dom` and `lucide-react` icons (`LayoutDashboard`, `Package`), highlighting the active route state.
   - [x] Create `TopHeader.tsx` displaying current page breadcrumbs and a visual trigger button for the future `Cmd+K` search palette.
 - **TICKET-103: Configure Client Router & Placeholder Views**
-  - [ ] Set up `createBrowserRouter` in `src/app/router.tsx` with root `<AppShell />` and child routes for `/dashboard` and `/products`.
-  - [ ] Configure an index redirect (`/` → `/products`) and a `404` catch-all route (`NotFoundPage.tsx`).
-  - [ ] Create lightweight placeholder page components (`ProductsPage.tsx`, `DashboardPage.tsx`) adhering to the single-component-per-file rule.
+  - [x] Set up `createBrowserRouter` in `src/app/router.tsx` with root `<AppShell />` and child routes for `/dashboard` and `/products`.
+  - [x] Configure an index redirect (`/` → `/products`) and a `404` catch-all route (`NotFoundPage.tsx`).
+  - [x] Create lightweight placeholder page components (`ProductsPage.tsx`, `DashboardPage.tsx`) adhering to the single-component-per-file rule.
 
 #### Definition of Done (Acceptance Criteria)
 
@@ -180,9 +180,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Build `SidebarNav.tsx` using `NavLink` from `react-router-dom` and `lucide-react` icons (`LayoutDashboard`, `Package`), highlighting the active route state.
   - [x] Create `TopHeader.tsx` displaying current page breadcrumbs and a visual trigger button for the future `Cmd+K` search palette.
 - **TICKET-103: Configure Client Router & Placeholder Views**
-  - [ ] Set up `createBrowserRouter` in `src/app/router.tsx` with root `<AppShell />` and child routes for `/dashboard` and `/products`.
-  - [ ] Configure an index redirect (`/` → `/products`) and a `404` catch-all route (`NotFoundPage.tsx`).
-  - [ ] Create lightweight placeholder page components (`ProductsPage.tsx`, `DashboardPage.tsx`) adhering to the single-component-per-file rule.
+  - [x] Set up `createBrowserRouter` in `src/app/router.tsx` with root `<AppShell />` and child routes for `/dashboard` and `/products`.
+  - [x] Configure an index redirect (`/` → `/products`) and a `404` catch-all route (`NotFoundPage.tsx`).
+  - [x] Create lightweight placeholder page components (`ProductsPage.tsx`, `DashboardPage.tsx`) adhering to the single-component-per-file rule.
 
 #### Definition of Done (Acceptance Criteria)
 
@@ -309,6 +309,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - Simulating a failed API request (e.g., offline mode or blocked endpoint in DevTools Network tab) renders the custom Error Boundary fallback with a working "Retry" button instead of a blank white screen.
 - Every file in `src/` is under 200 lines of code and exports only one primary component where applicable.
 - `npm run lint` and `npm run build` pass with zero errors and zero warnings.
+
 
 
 

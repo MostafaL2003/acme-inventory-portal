@@ -1,7 +1,6 @@
-export default function App() {
-  return (
-    <div>
+import { RouterProvider } from 'react-router-dom'
+import { router } from './app/router'
 
-    </div>
-  )
+export default function App() {
+  return <RouterProvider router={router} />
 }
