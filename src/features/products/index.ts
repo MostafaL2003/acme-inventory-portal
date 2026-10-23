@@ -1,1 +1,1 @@
-export {}
+export { ProductsPage } from './components/ProductsPage'
