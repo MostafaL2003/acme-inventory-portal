@@ -1,7 +1,4 @@
 @layer components {
-  /* ==========================================================================
-     1. Structural Shell Dimensions
-     ========================================================================== */
   .shell-sidebar {
     @apply w-64 bg-slate-900 text-slate-400;
   }
@@ -26,9 +23,6 @@
     @apply fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl border border-slate-700 z-40;
   }
 
-  /* ==========================================================================
-     2. Component Token Recipes
-     ========================================================================== */
   .btn-primary {
     @apply bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2 rounded-lg shadow-sm transition-colors inline-flex items-center justify-center;
   }
@@ -53,9 +47,6 @@
     @apply bg-blue-50/60 hover:bg-blue-50;
   }
 
-  /* ==========================================================================
-     3. Stock Status Pill Badges
-     ========================================================================== */
   .badge-in-stock {
     @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200;
   }
@@ -68,4 +59,3 @@
     @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-700 border border-rose-200;
   }
 }
-
