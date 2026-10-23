@@ -28,9 +28,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Create the base directory hierarchy: `src/app/`, `src/features/products/`, `src/features/dashboard/`, and `src/shared/` (`components/`, `hooks/`, `types/`, `utils/`).
   - [x] Configure path aliases (`@/`) in `tsconfig.app.json` and `vite.config.ts` for clean cross-module imports.
 - **TICKET-102: Build Persistent App Shell Layout**
-  - [ ] Create `AppShell.tsx` in `src/shared/components/layout/` with a fixed left navigation sidebar, sticky top bar, and main scrollable `<Outlet />` workspace.
-  - [ ] Build `SidebarNav.tsx` using `NavLink` from `react-router-dom` and `lucide-react` icons (`LayoutDashboard`, `Package`), highlighting the active route state.
-  - [ ] Create `TopHeader.tsx` displaying current page breadcrumbs and a visual trigger button for the future `Cmd+K` search palette.
+  - [x] Create `AppShell.tsx` in `src/shared/components/layout/` with a fixed left navigation sidebar, sticky top bar, and main scrollable `<Outlet />` workspace.
+  - [x] Build `SidebarNav.tsx` using `NavLink` from `react-router-dom` and `lucide-react` icons (`LayoutDashboard`, `Package`), highlighting the active route state.
+  - [x] Create `TopHeader.tsx` displaying current page breadcrumbs and a visual trigger button for the future `Cmd+K` search palette.
 - **TICKET-103: Configure Client Router & Placeholder Views**
   - [ ] Set up `createBrowserRouter` in `src/app/router.tsx` with root `<AppShell />` and child routes for `/dashboard` and `/products`.
   - [ ] Configure an index redirect (`/` → `/products`) and a `404` catch-all route (`NotFoundPage.tsx`).
@@ -176,9 +176,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Create the base directory hierarchy: `src/app/`, `src/features/products/`, `src/features/dashboard/`, and `src/shared/` (`components/`, `hooks/`, `types/`, `utils/`).
   - [x] Configure path aliases (`@/`) in `tsconfig.app.json` and `vite.config.ts` for clean cross-module imports.
 - **TICKET-102: Build Persistent App Shell Layout**
-  - [ ] Create `AppShell.tsx` in `src/shared/components/layout/` with a fixed left navigation sidebar, sticky top bar, and main scrollable `<Outlet />` workspace.
-  - [ ] Build `SidebarNav.tsx` using `NavLink` from `react-router-dom` and `lucide-react` icons (`LayoutDashboard`, `Package`), highlighting the active route state.
-  - [ ] Create `TopHeader.tsx` displaying current page breadcrumbs and a visual trigger button for the future `Cmd+K` search palette.
+  - [x] Create `AppShell.tsx` in `src/shared/components/layout/` with a fixed left navigation sidebar, sticky top bar, and main scrollable `<Outlet />` workspace.
+  - [x] Build `SidebarNav.tsx` using `NavLink` from `react-router-dom` and `lucide-react` icons (`LayoutDashboard`, `Package`), highlighting the active route state.
+  - [x] Create `TopHeader.tsx` displaying current page breadcrumbs and a visual trigger button for the future `Cmd+K` search palette.
 - **TICKET-103: Configure Client Router & Placeholder Views**
   - [ ] Set up `createBrowserRouter` in `src/app/router.tsx` with root `<AppShell />` and child routes for `/dashboard` and `/products`.
   - [ ] Configure an index redirect (`/` → `/products`) and a `404` catch-all route (`NotFoundPage.tsx`).
@@ -309,3 +309,6 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - Simulating a failed API request (e.g., offline mode or blocked endpoint in DevTools Network tab) renders the custom Error Boundary fallback with a working "Retry" button instead of a blank white screen.
 - Every file in `src/` is under 200 lines of code and exports only one primary component where applicable.
 - `npm run lint` and `npm run build` pass with zero errors and zero warnings.
+
+
+
