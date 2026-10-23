@@ -2,28 +2,31 @@
 
 ## Tech Stack
 
-| Tool | What It Does | Why We’re Using It |
-| :--- | :--- | :--- |
-| **Vite + React (TS)** | App core & bundler | Fast local dev server, pure client-side SPA (no Next.js server magic). |
-| **Tailwind CSS** | Styling | Utility-first styling so we don't spend hours wrestling with `.css` files. |
-| **lucide-react** | UI Icons | Clean, lightweight SVG icons for navigation and status badges. |
-| **react-router-dom** | Client Routing | Handles page swaps (`/products`, `/dashboard`) via `<Outlet/>` without browser reloads. |
-| **TanStack Query** | Server State | Fetches, caches, and syncs remote data from the API. Handles loading/error states and background refreshes. |
-| **Redux Toolkit (RTK)** | Client State | Handles UI-only state that the backend doesn't own—specifically the array of selected row IDs for batch actions and modal/drawer visibility. |
-| **DummyJSON API** | Backend API | Free, zero-setup public REST API providing real product data, search, pagination, and fake update/delete endpoints. |
-
+| Tool                    | What It Does       | Why We’re Using It                                                                                                                           |
+| :---------------------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Vite + React (TS)**   | App core & bundler | Fast local dev server, pure client-side SPA (no Next.js server magic).                                                                       |
+| **Tailwind CSS**        | Styling            | Utility-first styling so we don't spend hours wrestling with `.css` files.                                                                   |
+| **lucide-react**        | UI Icons           | Clean, lightweight SVG icons for navigation and status badges.                                                                               |
+| **react-router-dom**    | Client Routing     | Handles page swaps (`/products`, `/dashboard`) via `<Outlet/>` without browser reloads.                                                      |
+| **TanStack Query**      | Server State       | Fetches, caches, and syncs remote data from the API. Handles loading/error states and background refreshes.                                  |
+| **Redux Toolkit (RTK)** | Client State       | Handles UI-only state that the backend doesn't own—specifically the array of selected row IDs for batch actions and modal/drawer visibility. |
+| **DummyJSON API**       | Backend API        | Free, zero-setup public REST API providing real product data, search, pagination, and fake update/delete endpoints.                          |
 
 ## 3. Sprint Roadmap & Execution Milestones
 
+AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
+
 ### Sprint 1: Project Scaffolding, App Shell Layout, and Client Routing
+
 - **Core Objective:** Establish the feature-based folder architecture, configure the persistent B2B application shell (sidebar + top header), and wire up client-side routing between core views.
 - **Git Branch:** `feat/sprint-1-app-shell-routing`
 
 #### Tickets
+
 - **TICKET-101: Initialize Feature Folder Structure & Core Dependencies**
-  - [ ] Install core routing and state packages (`react-router-dom`, `@tanstack/react-query`, `@reduxjs/toolkit`, `react-redux`).
-  - [ ] Create the base directory hierarchy: `src/app/`, `src/features/products/`, `src/features/dashboard/`, and `src/shared/` (`components/`, `hooks/`, `types/`, `utils/`).
-  - [ ] Configure path aliases (`@/`) in `tsconfig.app.json` and `vite.config.ts` for clean cross-module imports.
+  - [x] Install core routing and state packages (`react-router-dom`, `@tanstack/react-query`, `@reduxjs/toolkit`, `react-redux`).
+  - [x] Create the base directory hierarchy: `src/app/`, `src/features/products/`, `src/features/dashboard/`, and `src/shared/` (`components/`, `hooks/`, `types/`, `utils/`).
+  - [x] Configure path aliases (`@/`) in `tsconfig.app.json` and `vite.config.ts` for clean cross-module imports.
 - **TICKET-102: Build Persistent App Shell Layout**
   - [ ] Create `AppShell.tsx` in `src/shared/components/layout/` with a fixed left navigation sidebar, sticky top bar, and main scrollable `<Outlet />` workspace.
   - [ ] Build `SidebarNav.tsx` using `NavLink` from `react-router-dom` and `lucide-react` icons (`LayoutDashboard`, `Package`), highlighting the active route state.
@@ -34,6 +37,7 @@
   - [ ] Create lightweight placeholder page components (`ProductsPage.tsx`, `DashboardPage.tsx`) adhering to the single-component-per-file rule.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Navigating to `/` automatically redirects the browser URL to `/products` without a full page reload.
 - Clicking between "Products" and "Dashboard" in the sidebar updates the URL and swaps the main `<Outlet />` content while keeping the sidebar and header mounted.
 - Active sidebar link visually reflects the current route using Tailwind active classes.
@@ -42,10 +46,12 @@
 ---
 
 ### Sprint 2: Data Presentation, Table View, and URL-driven Filtering (`useSearchParams`)
+
 - **Core Objective:** Define strict TypeScript contracts for DummyJSON products, render the inventory data table with stock status badges, and synchronize search, category filtering, and pagination directly with URL query parameters.
 - **Git Branch:** `feat/sprint-2-table-url-filters`
 
 #### Tickets
+
 - **TICKET-201: Define Product Contracts & API Fetch Client**
   - [ ] Create `src/features/products/types.ts` defining `Product`, `ProductsResponse`, and filter parameter interfaces matching the DummyJSON `/products` schema.
   - [ ] Implement pure fetch helpers in `src/features/products/api.ts` supporting `limit`, `skip`, `q` (search), and category endpoints (`https://dummyjson.com/products`).
@@ -63,6 +69,7 @@
   - [ ] Wire pagination clicks to update `?page=` in `useSearchParams` and compute `skip = (page - 1) * limit`.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Products table renders live data from DummyJSON with formatted currency (`$XX.XX`) and color-coded stock badges.
 - Typing in the search box or selecting a category updates the browser URL query string (e.g., `/products?q=phone&category=smartphones&page=1`).
 - Refreshing the browser tab or pasting a filtered URL restores the exact search input, selected category, and table page.
@@ -71,10 +78,12 @@
 ---
 
 ### Sprint 3: Server Cache Migration (TanStack Query) and Edit Product Drawer (`useMutation`)
+
 - **Core Objective:** Migrate data fetching to TanStack Query v5 for caching and background synchronization, and implement a slide-over Edit Drawer that mutates product data and updates the client cache.
 - **Git Branch:** `feat/sprint-3-react-query-edit-drawer`
 
 #### Tickets
+
 - **TICKET-301: Configure QueryClient & Migrate Product Queries**
   - [ ] Initialize `QueryClientProvider` in `src/app/providers.tsx` with sensible defaults (`staleTime: 60_000`, `refetchOnWindowFocus: false`).
   - [ ] Create `useProductsQuery.ts` and `useCategoriesQuery.ts` in `src/features/products/hooks/` using structured query keys (`['products', { q, category, page }]`).
@@ -88,6 +97,7 @@
   - [ ] Display inline saving spinner on the submit button and a dismissible feedback banner/toast upon mutation completion or failure.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Navigating back and forth between already-visited pagination pages serves cached data instantaneously without showing loading skeletons.
 - Clicking "Edit" on any product row opens the slide-over drawer pre-populated with that product's exact details.
 - Submitting valid changes sends a `PUT` request to DummyJSON, closes the drawer, and immediately updates the row's title, price, stock count, and status badge in the table.
@@ -96,10 +106,12 @@
 ---
 
 ### Sprint 4: Redux Toolkit Batch Selection Dock and Global `Cmd+K` Command Palette
+
 - **Core Objective:** Configure Redux Toolkit for cross-component UI state, enabling multi-row batch actions via a floating action dock and a keyboard-driven `Cmd+K` / `Ctrl+K` command palette.
 - **Git Branch:** `feat/sprint-4-rtk-batch-dock-cmdk`
 
 #### Tickets
+
 - **TICKET-401: Setup Redux Store & UI Slices**
   - [ ] Configure the Redux store in `src/app/store.ts` and export typed hooks (`useAppDispatch`, `useAppSelector`) in `src/shared/hooks/useRedux.ts`.
   - [ ] Create `selectionSlice.ts` in `src/features/products/store/` managing `selectedProductIds: number[]` with actions: `toggleSelectId`, `selectAllIds`, and `clearSelection`.
@@ -116,6 +128,7 @@
   - [ ] Build `CommandPaletteModal.tsx` with instant keyboard navigation (`ArrowUp`, `ArrowDown`, `Enter`, `Escape`) to jump to routes (`/dashboard`, `/products`), filter quick presets (e.g., "Filter: Low Stock"), or open a searched product directly in the Edit Drawer.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Checking individual rows or the header "Select All" checkbox reveals the floating bottom Batch Action Dock showing the exact count of selected items.
 - Executing "Mark Out of Stock" or "Delete Selected" from the dock updates all affected rows in the TanStack Query table cache and clears the selection dock.
 - Pressing `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux) from anywhere in the app opens the Command Palette modal and focuses the search input.
@@ -124,10 +137,12 @@
 ---
 
 ### Sprint 5: Dashboard Metrics View, Error Boundaries, and Production Hardening
+
 - **Core Objective:** Build the executive Dashboard KPI view powered by aggregated product data, wrap routes in resilient Error Boundaries, and enforce all codebase quality constraints (`< 200` lines per file, strict TypeScript build).
 - **Git Branch:** `feat/sprint-5-dashboard-hardening`
 
 #### Tickets
+
 - **TICKET-501: Build Dashboard KPI Cards & Inventory Breakdown**
   - [ ] Create `useInventoryMetrics.ts` in `src/features/dashboard/hooks/` computing derived KPIs from product data: Total SKU Count, Total Inventory Valuation ($\sum \text{price} \times \text{stock}$), Low Stock Alert Count, and Out-of-Stock Count.
   - [ ] Build `MetricStatCard.tsx` and `CategoryBreakdownList.tsx` (using pure Tailwind progress bars for category distribution and stock health).
@@ -141,6 +156,7 @@
   - [ ] Run `npm run lint` and `npm run build` (`tsc -b && vite build`) and resolve all TypeScript or linter warnings.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Navigating to `/dashboard` displays real-time KPI cards and category distribution bars derived from the cached product dataset; editing a product's stock/price in `/products` immediately reflects in `/dashboard` totals.
 - Simulating a failed API request (e.g., offline mode or blocked endpoint in DevTools Network tab) renders the custom Error Boundary fallback with a working "Retry" button instead of a blank white screen.
 - Every file in `src/` is under 200 lines of code and exports only one primary component where applicable.
@@ -149,14 +165,16 @@
 ## 3. Sprint Roadmap & Execution Milestones
 
 ### Sprint 1: Project Scaffolding, App Shell Layout, and Client Routing
+
 - **Core Objective:** Establish the feature-based folder architecture, configure the persistent B2B application shell (sidebar + top header), and wire up client-side routing between core views.
 - **Git Branch:** `feat/sprint-1-app-shell-routing`
 
 #### Tickets
+
 - **TICKET-101: Initialize Feature Folder Structure & Core Dependencies**
-  - [ ] Install core routing and state packages (`react-router-dom`, `@tanstack/react-query`, `@reduxjs/toolkit`, `react-redux`).
-  - [ ] Create the base directory hierarchy: `src/app/`, `src/features/products/`, `src/features/dashboard/`, and `src/shared/` (`components/`, `hooks/`, `types/`, `utils/`).
-  - [ ] Configure path aliases (`@/`) in `tsconfig.app.json` and `vite.config.ts` for clean cross-module imports.
+  - [x] Install core routing and state packages (`react-router-dom`, `@tanstack/react-query`, `@reduxjs/toolkit`, `react-redux`).
+  - [x] Create the base directory hierarchy: `src/app/`, `src/features/products/`, `src/features/dashboard/`, and `src/shared/` (`components/`, `hooks/`, `types/`, `utils/`).
+  - [x] Configure path aliases (`@/`) in `tsconfig.app.json` and `vite.config.ts` for clean cross-module imports.
 - **TICKET-102: Build Persistent App Shell Layout**
   - [ ] Create `AppShell.tsx` in `src/shared/components/layout/` with a fixed left navigation sidebar, sticky top bar, and main scrollable `<Outlet />` workspace.
   - [ ] Build `SidebarNav.tsx` using `NavLink` from `react-router-dom` and `lucide-react` icons (`LayoutDashboard`, `Package`), highlighting the active route state.
@@ -167,6 +185,7 @@
   - [ ] Create lightweight placeholder page components (`ProductsPage.tsx`, `DashboardPage.tsx`) adhering to the single-component-per-file rule.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Navigating to `/` automatically redirects the browser URL to `/products` without a full page reload.
 - Clicking between "Products" and "Dashboard" in the sidebar updates the URL and swaps the main `<Outlet />` content while keeping the sidebar and header mounted.
 - Active sidebar link visually reflects the current route using Tailwind active classes.
@@ -175,10 +194,12 @@
 ---
 
 ### Sprint 2: Data Presentation, Table View, and URL-driven Filtering (`useSearchParams`)
+
 - **Core Objective:** Define strict TypeScript contracts for DummyJSON products, render the inventory data table with stock status badges, and synchronize search, category filtering, and pagination directly with URL query parameters.
 - **Git Branch:** `feat/sprint-2-table-url-filters`
 
 #### Tickets
+
 - **TICKET-201: Define Product Contracts & API Fetch Client**
   - [ ] Create `src/features/products/types.ts` defining `Product`, `ProductsResponse`, and filter parameter interfaces matching the DummyJSON `/products` schema.
   - [ ] Implement pure fetch helpers in `src/features/products/api.ts` supporting `limit`, `skip`, `q` (search), and category endpoints (`https://dummyjson.com/products`).
@@ -196,6 +217,7 @@
   - [ ] Wire pagination clicks to update `?page=` in `useSearchParams` and compute `skip = (page - 1) * limit`.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Products table renders live data from DummyJSON with formatted currency (`$XX.XX`) and color-coded stock badges.
 - Typing in the search box or selecting a category updates the browser URL query string (e.g., `/products?q=phone&category=smartphones&page=1`).
 - Refreshing the browser tab or pasting a filtered URL restores the exact search input, selected category, and table page.
@@ -204,10 +226,12 @@
 ---
 
 ### Sprint 3: Server Cache Migration (TanStack Query) and Edit Product Drawer (`useMutation`)
+
 - **Core Objective:** Migrate data fetching to TanStack Query v5 for caching and background synchronization, and implement a slide-over Edit Drawer that mutates product data and updates the client cache.
 - **Git Branch:** `feat/sprint-3-react-query-edit-drawer`
 
 #### Tickets
+
 - **TICKET-301: Configure QueryClient & Migrate Product Queries**
   - [ ] Initialize `QueryClientProvider` in `src/app/providers.tsx` with sensible defaults (`staleTime: 60_000`, `refetchOnWindowFocus: false`).
   - [ ] Create `useProductsQuery.ts` and `useCategoriesQuery.ts` in `src/features/products/hooks/` using structured query keys (`['products', { q, category, page }]`).
@@ -221,6 +245,7 @@
   - [ ] Display inline saving spinner on the submit button and a dismissible feedback banner/toast upon mutation completion or failure.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Navigating back and forth between already-visited pagination pages serves cached data instantaneously without showing loading skeletons.
 - Clicking "Edit" on any product row opens the slide-over drawer pre-populated with that product's exact details.
 - Submitting valid changes sends a `PUT` request to DummyJSON, closes the drawer, and immediately updates the row's title, price, stock count, and status badge in the table.
@@ -229,10 +254,12 @@
 ---
 
 ### Sprint 4: Redux Toolkit Batch Selection Dock and Global `Cmd+K` Command Palette
+
 - **Core Objective:** Configure Redux Toolkit for cross-component UI state, enabling multi-row batch actions via a floating action dock and a keyboard-driven `Cmd+K` / `Ctrl+K` command palette.
 - **Git Branch:** `feat/sprint-4-rtk-batch-dock-cmdk`
 
 #### Tickets
+
 - **TICKET-401: Setup Redux Store & UI Slices**
   - [ ] Configure the Redux store in `src/app/store.ts` and export typed hooks (`useAppDispatch`, `useAppSelector`) in `src/shared/hooks/useRedux.ts`.
   - [ ] Create `selectionSlice.ts` in `src/features/products/store/` managing `selectedProductIds: number[]` with actions: `toggleSelectId`, `selectAllIds`, and `clearSelection`.
@@ -249,6 +276,7 @@
   - [ ] Build `CommandPaletteModal.tsx` with instant keyboard navigation (`ArrowUp`, `ArrowDown`, `Enter`, `Escape`) to jump to routes (`/dashboard`, `/products`), filter quick presets (e.g., "Filter: Low Stock"), or open a searched product directly in the Edit Drawer.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Checking individual rows or the header "Select All" checkbox reveals the floating bottom Batch Action Dock showing the exact count of selected items.
 - Executing "Mark Out of Stock" or "Delete Selected" from the dock updates all affected rows in the TanStack Query table cache and clears the selection dock.
 - Pressing `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux) from anywhere in the app opens the Command Palette modal and focuses the search input.
@@ -257,10 +285,12 @@
 ---
 
 ### Sprint 5: Dashboard Metrics View, Error Boundaries, and Production Hardening
+
 - **Core Objective:** Build the executive Dashboard KPI view powered by aggregated product data, wrap routes in resilient Error Boundaries, and enforce all codebase quality constraints (`< 200` lines per file, strict TypeScript build).
 - **Git Branch:** `feat/sprint-5-dashboard-hardening`
 
 #### Tickets
+
 - **TICKET-501: Build Dashboard KPI Cards & Inventory Breakdown**
   - [ ] Create `useInventoryMetrics.ts` in `src/features/dashboard/hooks/` computing derived KPIs from product data: Total SKU Count, Total Inventory Valuation ($\sum \text{price} \times \text{stock}$), Low Stock Alert Count, and Out-of-Stock Count.
   - [ ] Build `MetricStatCard.tsx` and `CategoryBreakdownList.tsx` (using pure Tailwind progress bars for category distribution and stock health).
@@ -274,8 +304,8 @@
   - [ ] Run `npm run lint` and `npm run build` (`tsc -b && vite build`) and resolve all TypeScript or linter warnings.
 
 #### Definition of Done (Acceptance Criteria)
+
 - Navigating to `/dashboard` displays real-time KPI cards and category distribution bars derived from the cached product dataset; editing a product's stock/price in `/products` immediately reflects in `/dashboard` totals.
 - Simulating a failed API request (e.g., offline mode or blocked endpoint in DevTools Network tab) renders the custom Error Boundary fallback with a working "Retry" button instead of a blank white screen.
 - Every file in `src/` is under 200 lines of code and exports only one primary component where applicable.
 - `npm run lint` and `npm run build` pass with zero errors and zero warnings.
-
