@@ -1,0 +1,61 @@
+@layer components {
+  .shell-sidebar {
+    @apply w-64 bg-slate-900 text-slate-400;
+  }
+
+  .shell-sidebar-navlink-active {
+    @apply bg-blue-600 text-white font-medium rounded-lg;
+  }
+
+  .shell-topbar {
+    @apply h-16 bg-white border-b border-slate-200 px-6;
+  }
+
+  .shell-main-content {
+    @apply flex-1 overflow-y-auto bg-slate-50 p-6;
+  }
+
+  .shell-edit-drawer {
+    @apply w-[440px] bg-white h-full shadow-2xl border-l border-slate-200 z-50;
+  }
+
+  .shell-batch-dock {
+    @apply fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl border border-slate-700 z-40;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2 rounded-lg shadow-sm transition-colors inline-flex items-center justify-center;
+  }
+
+  .btn-secondary {
+    @apply bg-white hover:bg-slate-50 text-slate-700 font-medium text-sm px-4 py-2 rounded-lg border border-slate-300 shadow-sm transition-colors inline-flex items-center justify-center;
+  }
+
+  .table-container {
+    @apply bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden;
+  }
+
+  .table-header {
+    @apply bg-slate-50/80 border-b border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-500;
+  }
+
+  .table-row {
+    @apply border-b border-slate-100 hover:bg-slate-50/80 transition-colors text-sm text-slate-700;
+  }
+
+  .table-row-selected {
+    @apply bg-blue-50/60 hover:bg-blue-50;
+  }
+
+  .badge-in-stock {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200;
+  }
+
+  .badge-low-stock {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200;
+  }
+
+  .badge-out-of-stock {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-700 border border-rose-200;
+  }
+}
