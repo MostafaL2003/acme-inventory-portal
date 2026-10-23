@@ -10,6 +10,7 @@ trigger: always_on
 - Import from other features only through their `index.ts` public API — never reach into another feature's internals.
 - Put truly shared, feature-agnostic code in `src/shared/` (`components/`, `hooks/`, `utils/`, `types/`).
 - Keep `src/app/` (or `App.tsx`) limited to providers, routing, and layout composition.
+- Dont write un needed comments in the code
 
 ## One Primary Component Per File
 - Each `.tsx` file exports exactly one primary component; the file name matches it (`ProductCard.tsx` → `ProductCard`).
