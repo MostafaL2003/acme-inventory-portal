@@ -5,7 +5,6 @@ export type {
   ProductQueryParams,
   StockStatus,
 } from './types'
-
 export {
   fetchProducts,
   fetchProductById,
@@ -13,4 +12,8 @@ export {
   updateProduct,
   deleteProduct,
 } from './api'
-
+export {
+  useUrlProductFilters,
+  type UrlProductFilters,
+  type UseUrlProductFiltersReturn,
+} from './hooks/useUrlProductFilters'
