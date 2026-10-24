@@ -53,9 +53,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 #### Tickets
 
 - **TICKET-201: Define Product Contracts & API Fetch Client**
-  - [ ] Create `src/features/products/types.ts` defining `Product`, `ProductsResponse`, and filter parameter interfaces matching the DummyJSON `/products` schema.
-  - [ ] Implement pure fetch helpers in `src/features/products/api.ts` supporting `limit`, `skip`, `q` (search), and category endpoints (`https://dummyjson.com/products`).
-  - [ ] Create a custom hook `useUrlProductFilters.ts` wrapping `useSearchParams` to read and update `q`, `category`, `page`, and `sortBy` in the browser URL.
+  - [x] Create `src/features/products/types.ts` defining `Product`, `ProductsResponse`, and filter parameter interfaces matching the DummyJSON `/products` schema.
+  - [x] Implement pure fetch helpers in `src/features/products/api.ts` supporting `limit`, `skip`, `q` (search), and category endpoints (`https://dummyjson.com/products`).
+  - [x] Create a custom hook `useUrlProductFilters.ts` wrapping `useSearchParams` to read and update `q`, `category`, `page`, and `sortBy` in the browser URL.
 - **TICKET-202: Build Inventory Data Table & Status Cells**
   - [ ] Create `ProductTable.tsx` rendering columns: SKU/ID, Thumbnail + Title, Category, Price, Stock Level, and Status Badge.
   - [ ] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
@@ -201,9 +201,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 #### Tickets
 
 - **TICKET-201: Define Product Contracts & API Fetch Client**
-  - [ ] Create `src/features/products/types.ts` defining `Product`, `ProductsResponse`, and filter parameter interfaces matching the DummyJSON `/products` schema.
-  - [ ] Implement pure fetch helpers in `src/features/products/api.ts` supporting `limit`, `skip`, `q` (search), and category endpoints (`https://dummyjson.com/products`).
-  - [ ] Create a custom hook `useUrlProductFilters.ts` wrapping `useSearchParams` to read and update `q`, `category`, `page`, and `sortBy` in the browser URL.
+  - [x] Create `src/features/products/types.ts` defining `Product`, `ProductsResponse`, and filter parameter interfaces matching the DummyJSON `/products` schema.
+  - [x] Implement pure fetch helpers in `src/features/products/api.ts` supporting `limit`, `skip`, `q` (search), and category endpoints (`https://dummyjson.com/products`).
+  - [x] Create a custom hook `useUrlProductFilters.ts` wrapping `useSearchParams` to read and update `q`, `category`, `page`, and `sortBy` in the browser URL.
 - **TICKET-202: Build Inventory Data Table & Status Cells**
   - [ ] Create `ProductTable.tsx` rendering columns: SKU/ID, Thumbnail + Title, Category, Price, Stock Level, and Status Badge.
   - [ ] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
@@ -309,7 +309,6 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - Simulating a failed API request (e.g., offline mode or blocked endpoint in DevTools Network tab) renders the custom Error Boundary fallback with a working "Retry" button instead of a blank white screen.
 - Every file in `src/` is under 200 lines of code and exports only one primary component where applicable.
 - `npm run lint` and `npm run build` pass with zero errors and zero warnings.
-
 
 
 

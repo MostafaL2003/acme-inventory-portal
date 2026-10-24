@@ -16,7 +16,7 @@
   }
 
   .shell-edit-drawer {
-    @apply w-[440px] bg-white h-full shadow-2xl border-l border-slate-200 z-50;
+    @apply w-110 bg-white h-full shadow-2xl border-l border-slate-200 z-50;
   }
 
   .shell-batch-dock {
