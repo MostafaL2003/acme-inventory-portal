@@ -5,3 +5,12 @@ export type {
   ProductQueryParams,
   StockStatus,
 } from './types'
+
+export {
+  fetchProducts,
+  fetchProductById,
+  fetchCategories,
+  updateProduct,
+  deleteProduct,
+} from './api'
+
