@@ -1,18 +1,41 @@
+import { Plus, ChevronDown } from 'lucide-react'
+import { ProductTable } from './ProductTable'
+
 export function ProductsPage() {
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-slate-900 tracking-tight">Products Catalog</h2>
-          <p className="text-sm text-slate-500">Manage, filter, and track stock levels across warehouse bins.</p>
+    <div className="space-y-5">
+      <div className="flex items-center justify-between flex-wrap gap-4">
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            Product Catalog
+          </h1>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-200/70 text-slate-600">
+            1,248 items
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg shadow-xs transition-colors cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add Product</span>
+          </button>
+
+          <button
+            type="button"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-700 font-medium text-sm rounded-lg border border-slate-300 shadow-xs transition-colors cursor-pointer"
+          >
+            <span>Bulk Actions</span>
+            <ChevronDown className="w-4 h-4 text-slate-400" />
+          </button>
         </div>
       </div>
-      <div className="bg-white rounded-xl border border-slate-200 p-8 text-center text-slate-500 shadow-xs">
-        <p className="text-sm">Products table and URL filters will be loaded here.</p>
-      </div>
+
+      <ProductTable />
     </div>
   )
 }
 
 export default ProductsPage
-

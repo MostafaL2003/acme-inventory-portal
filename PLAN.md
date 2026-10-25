@@ -57,9 +57,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Implement pure fetch helpers in `src/features/products/api.ts` supporting `limit`, `skip`, `q` (search), and category endpoints (`https://dummyjson.com/products`).
   - [x] Create a custom hook `useUrlProductFilters.ts` wrapping `useSearchParams` to read and update `q`, `category`, `page`, and `sortBy` in the browser URL.
 - **TICKET-202: Build Inventory Data Table & Status Cells**
-  - [ ] Create `ProductTable.tsx` rendering columns: SKU/ID, Thumbnail + Title, Category, Price, Stock Level, and Status Badge.
-  - [ ] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
-  - [ ] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
+  - [x] Create `ProductTable.tsx` rendering columns: SKU/ID, Thumbnail + Title, Category, Price, Stock Level, and Status Badge.
+  - [x] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
+  - [x] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
 - **TICKET-203: Implement Filter Toolbar & Debounced URL Search**
   - [ ] Build `ProductFilterToolbar.tsx` with a search input, category dropdown selector, and "Reset Filters" action.
   - [ ] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
@@ -205,9 +205,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Implement pure fetch helpers in `src/features/products/api.ts` supporting `limit`, `skip`, `q` (search), and category endpoints (`https://dummyjson.com/products`).
   - [x] Create a custom hook `useUrlProductFilters.ts` wrapping `useSearchParams` to read and update `q`, `category`, `page`, and `sortBy` in the browser URL.
 - **TICKET-202: Build Inventory Data Table & Status Cells**
-  - [ ] Create `ProductTable.tsx` rendering columns: SKU/ID, Thumbnail + Title, Category, Price, Stock Level, and Status Badge.
-  - [ ] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
-  - [ ] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
+  - [x] Create `ProductTable.tsx` rendering columns: SKU/ID, Thumbnail + Title, Category, Price, Stock Level, and Status Badge.
+  - [x] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
+  - [x] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
 - **TICKET-203: Implement Filter Toolbar & Debounced URL Search**
   - [ ] Build `ProductFilterToolbar.tsx` with a search input, category dropdown selector, and "Reset Filters" action.
   - [ ] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
@@ -309,6 +309,8 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - Simulating a failed API request (e.g., offline mode or blocked endpoint in DevTools Network tab) renders the custom Error Boundary fallback with a working "Retry" button instead of a blank white screen.
 - Every file in `src/` is under 200 lines of code and exports only one primary component where applicable.
 - `npm run lint` and `npm run build` pass with zero errors and zero warnings.
+
+
 
 
 
