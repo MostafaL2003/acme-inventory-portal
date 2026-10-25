@@ -8,6 +8,8 @@ export interface Product {
   stock: number
   description: string
   brand?: string
+  location?: string
+  status?: StockStatus
 }
 
 export interface ProductsResponse {
@@ -26,5 +28,8 @@ export interface ProductQueryParams {
   order?: 'asc' | 'desc'
 }
 
-export type StockStatus = 'in-stock' | 'low-stock' | 'out-of-stock'
-
+export type StockStatus =
+  | 'in-stock'
+  | 'low-stock'
+  | 'out-of-stock'
+  | 'backordered'

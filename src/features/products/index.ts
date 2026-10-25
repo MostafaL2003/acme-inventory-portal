@@ -1,4 +1,7 @@
 export { ProductsPage } from './components/ProductsPage'
+export { ProductTable } from './components/ProductTable'
+export { ProductRow } from './components/ProductRow'
+export { StockStatusBadge } from './components/StockStatusBadge'
 export type {
   Product,
   ProductsResponse,
