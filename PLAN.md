@@ -59,7 +59,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - **TICKET-202: Build Inventory Data Table & Status Cells**
   - [x] Create `ProductTable.tsx` rendering columns: SKU/ID, Thumbnail + Title, Category, Price, Stock Level, and Status Badge.
   - [x] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
-  - [ ] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
+  - [x] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
 - **TICKET-203: Implement Filter Toolbar & Debounced URL Search**
   - [ ] Build `ProductFilterToolbar.tsx` with a search input, category dropdown selector, and "Reset Filters" action.
   - [ ] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
@@ -207,7 +207,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - **TICKET-202: Build Inventory Data Table & Status Cells**
   - [x] Create `ProductTable.tsx` rendering columns: SKU/ID, Thumbnail + Title, Category, Price, Stock Level, and Status Badge.
   - [x] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
-  - [ ] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
+  - [x] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
 - **TICKET-203: Implement Filter Toolbar & Debounced URL Search**
   - [ ] Build `ProductFilterToolbar.tsx` with a search input, category dropdown selector, and "Reset Filters" action.
   - [ ] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
