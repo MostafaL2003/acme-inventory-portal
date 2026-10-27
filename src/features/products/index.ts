@@ -6,6 +6,7 @@ export { ProductTableSkeleton } from './components/ProductTableSkeleton'
 export { EmptyProductsState } from './components/EmptyProductsState'
 export { ProductFilterToolbar } from './components/ProductFilterToolbar'
 export { PaginationBar, type PaginationBarProps } from './components/PaginationBar'
+export { EditProductDrawer, type EditProductDrawerProps } from './components/EditProductDrawer'
 export type {
   Product,
   ProductsResponse,

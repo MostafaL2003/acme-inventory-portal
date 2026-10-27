@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Plus, ChevronDown } from 'lucide-react'
 import { DEFAULT_CATEGORY_SLUGS } from '../constants'
 import { useUrlProductFilters } from '../hooks/useUrlProductFilters'
@@ -6,11 +7,14 @@ import { useCategoriesQuery } from '../hooks/useCategoriesQuery'
 import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
 import { PaginationBar } from './PaginationBar'
+import { EditProductDrawer } from './EditProductDrawer'
+import type { Product } from '../types'
 
 export function ProductsPage() {
   const { filters, queryParams, setPage, setPageSize, resetFilters } = useUrlProductFilters()
   const { data: productsData, isLoading } = useProductsQuery(queryParams)
   const { data: categories = DEFAULT_CATEGORY_SLUGS } = useCategoriesQuery()
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null)
 
   const totalItems = productsData?.total ?? 0
 
@@ -50,6 +54,7 @@ export function ProductsPage() {
       <ProductTable
         products={productsData?.products ?? []}
         isLoading={isLoading}
+        onAction={(product) => setEditingProduct(product)}
         onResetFilters={resetFilters}
         pagination={
           <PaginationBar
@@ -61,6 +66,13 @@ export function ProductsPage() {
             onPageSizeChange={setPageSize}
           />
         }
+      />
+
+      <EditProductDrawer
+        isOpen={Boolean(editingProduct)}
+        onClose={() => setEditingProduct(null)}
+        product={editingProduct}
+        categories={categories}
       />
     </div>
   )
