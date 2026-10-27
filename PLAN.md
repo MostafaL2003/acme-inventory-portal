@@ -85,7 +85,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 #### Tickets
 
 - **TICKET-301: Configure QueryClient & Migrate Product Queries**
-  - [ ] Initialize `QueryClientProvider` in `src/app/providers.tsx` with sensible defaults (`staleTime: 60_000`, `refetchOnWindowFocus: false`).
+  - [x] Initialize `QueryClientProvider` in `src/app/providers.tsx` with sensible defaults (`staleTime: 60_000`, `refetchOnWindowFocus: false`).
   - [ ] Create `useProductsQuery.ts` and `useCategoriesQuery.ts` in `src/features/products/hooks/` using structured query keys (`['products', { q, category, page }]`).
   - [ ] Enable `placeholderData: keepPreviousData` on `useProductsQuery` so pagination and filter transitions do not flash full-screen loading skeletons.
 - **TICKET-302: Build Slide-Over Edit Product Drawer UI**
