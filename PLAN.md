@@ -62,7 +62,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
 - **TICKET-203: Implement Filter Toolbar & Debounced URL Search**
   - [x] Build ProductFilterToolbar.tsx with search input (q), dynamic category dropdown, placeholder filter dropdowns (status/warehouse/price/stock), and "Reset Filters" action. 
-  - [ ] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
+  - [x] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
   - [ ] Reset pagination parameter `page=1` automatically whenever `q` or `category` changes.
 - **TICKET-204: Build URL-Synced Pagination Controls**
   - [ ] Create `PaginationBar.tsx` displaying current item range (`Showing 1–20 of 194`) and Previous/Next page buttons.
@@ -210,7 +210,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
 - **TICKET-203: Implement Filter Toolbar & Debounced URL Search**
   - [x] Build `ProductFilterToolbar.tsx` with a search input, category dropdown selector, and "Reset Filters" action.
-  - [ ] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
+  - [x] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
   - [ ] Reset pagination parameter `page=1` automatically whenever `q` or `category` changes.
 - **TICKET-204: Build URL-Synced Pagination Controls**
   - [ ] Create `PaginationBar.tsx` displaying current item range (`Showing 1–20 of 194`) and Previous/Next page buttons.

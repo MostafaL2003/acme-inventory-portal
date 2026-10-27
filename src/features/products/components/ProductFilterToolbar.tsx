@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react'
 import { Search, X, RotateCcw } from 'lucide-react'
+import { useDebouncedValue } from '@/shared/hooks'
 import { useUrlProductFilters } from '../hooks/useUrlProductFilters'
 import { FilterDropdown } from './FilterDropdown'
 import {
@@ -21,16 +23,38 @@ export function ProductFilterToolbar() {
     resetFilters,
   } = useUrlProductFilters()
 
+  const [searchInput, setSearchInput] = useState(filters.q)
+  const [prevUrlQ, setPrevUrlQ] = useState(filters.q)
+  const debouncedSearch = useDebouncedValue(searchInput, 300)
+
+  if (filters.q !== prevUrlQ) {
+    setPrevUrlQ(filters.q)
+    setSearchInput(filters.q)
+  }
+
+  useEffect(() => {
+    if (debouncedSearch === searchInput && debouncedSearch !== filters.q) {
+      setSearch(debouncedSearch)
+    }
+  }, [debouncedSearch, searchInput, filters.q, setSearch])
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value)
+    setSearchInput(e.target.value)
   }
 
   const handleClearSearch = () => {
+    setSearchInput('')
     setSearch('')
   }
 
+  const handleResetAll = () => {
+    setSearchInput('')
+    resetFilters()
+  }
+
   const hasActiveFilters = Boolean(
-    filters.q ||
+    searchInput ||
+      filters.q ||
       filters.categories.length > 0 ||
       filters.status ||
       filters.warehouse ||
@@ -44,12 +68,12 @@ export function ProductFilterToolbar() {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
         <input
           type="text"
-          value={filters.q}
+          value={searchInput}
           onChange={handleSearchChange}
           placeholder="Search by SKU, title, category..."
           className="w-full h-10 pl-9 pr-8 text-sm bg-white border border-slate-200 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-2xs"
         />
-        {filters.q && (
+        {searchInput && (
           <button
             type="button"
             onClick={handleClearSearch}
@@ -100,7 +124,7 @@ export function ProductFilterToolbar() {
       {hasActiveFilters && (
         <button
           type="button"
-          onClick={resetFilters}
+          onClick={handleResetAll}
           className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
         >
           <RotateCcw className="w-3.5 h-3.5" />
