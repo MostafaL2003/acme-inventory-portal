@@ -61,9 +61,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
   - [x] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
 - **TICKET-203: Implement Filter Toolbar & Debounced URL Search**
-  - [ ] Build `ProductFilterToolbar.tsx` with a search input, category dropdown selector, and "Reset Filters" action.
-  - [ ] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
-  - [ ] Reset pagination parameter `page=1` automatically whenever `q` or `category` changes.
+  - [x] Build ProductFilterToolbar.tsx with search input (q), dynamic category dropdown, placeholder filter dropdowns (status/warehouse/price/stock), and "Reset Filters" action. 
+  - [x] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
+  - [x] Reset pagination parameter `page=1` automatically whenever `q` or `category` changes.
 - **TICKET-204: Build URL-Synced Pagination Controls**
   - [ ] Create `PaginationBar.tsx` displaying current item range (`Showing 1–20 of 194`) and Previous/Next page buttons.
   - [ ] Wire pagination clicks to update `?page=` in `useSearchParams` and compute `skip = (page - 1) * limit`.
@@ -209,9 +209,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Build `StockStatusBadge.tsx` in `src/features/products/components/` computing status from stock count (`In Stock > 20`, `Low Stock 1–20`, `Out of Stock === 0`).
   - [x] Create `ProductTableSkeleton.tsx` and `EmptyProductsState.tsx` to handle loading and zero-result search states cleanly.
 - **TICKET-203: Implement Filter Toolbar & Debounced URL Search**
-  - [ ] Build `ProductFilterToolbar.tsx` with a search input, category dropdown selector, and "Reset Filters" action.
-  - [ ] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
-  - [ ] Reset pagination parameter `page=1` automatically whenever `q` or `category` changes.
+  - [x] Build `ProductFilterToolbar.tsx` with a search input, category dropdown selector, and "Reset Filters" action.
+  - [x] Create `useDebouncedValue.ts` in `src/shared/hooks/` (300ms delay) so typing in the search bar updates `?q=` in the URL without spamming network requests on every keystroke.
+  - [x] Reset pagination parameter `page=1` automatically whenever `q` or `category` changes.
 - **TICKET-204: Build URL-Synced Pagination Controls**
   - [ ] Create `PaginationBar.tsx` displaying current item range (`Showing 1–20 of 194`) and Previous/Next page buttons.
   - [ ] Wire pagination clicks to update `?page=` in `useSearchParams` and compute `skip = (page - 1) * limit`.
@@ -309,8 +309,3 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - Simulating a failed API request (e.g., offline mode or blocked endpoint in DevTools Network tab) renders the custom Error Boundary fallback with a working "Retry" button instead of a blank white screen.
 - Every file in `src/` is under 200 lines of code and exports only one primary component where applicable.
 - `npm run lint` and `npm run build` pass with zero errors and zero warnings.
-
-
-
-
-

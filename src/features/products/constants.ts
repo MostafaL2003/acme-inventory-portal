@@ -94,3 +94,36 @@ export const SAMPLE_IMAGE_PRODUCTS: Product[] = [
   },
 ]
 
+export const DEFAULT_CATEGORY_SLUGS: string[] = [
+  'beauty',
+  'fragrances',
+  'furniture',
+  'groceries',
+  'home-decoration',
+  'kitchen-accessories',
+  'laptops',
+  'mens-shirts',
+  'mens-shoes',
+  'mens-watches',
+  'mobile-accessories',
+  'motorcycle',
+  'skin-care',
+  'smartphones',
+  'sports-accessories',
+  'sunglasses',
+  'tablets',
+  'tops',
+  'vehicle',
+  'womens-bags',
+  'womens-dresses',
+  'womens-jewellery',
+  'womens-shoes',
+  'womens-watches',
+]
+
+export const PLACEHOLDER_FILTER_LABELS = [
+  'Status',
+  'Warehouse',
+  'Stock Level',
+  'Price Range',
+] as const
