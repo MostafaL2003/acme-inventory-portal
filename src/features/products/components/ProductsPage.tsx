@@ -1,9 +1,13 @@
 import { Plus, ChevronDown } from 'lucide-react'
 import { DEFAULT_CATEGORY_SLUGS } from '../constants'
+import { useUrlProductFilters } from '../hooks/useUrlProductFilters'
 import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
+import { PaginationBar } from './PaginationBar'
 
 export function ProductsPage() {
+  const { filters, setPage, setPageSize } = useUrlProductFilters()
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-4">
@@ -37,7 +41,18 @@ export function ProductsPage() {
 
       <ProductFilterToolbar categories={DEFAULT_CATEGORY_SLUGS} />
 
-      <ProductTable />
+      <ProductTable
+        pagination={
+          <PaginationBar
+            currentPage={filters.page}
+            totalItems={1248}
+            pageSize={filters.limit}
+            pageSizeOptions={[10, 20, 50, 100]}
+            onPageChange={setPage}
+            onPageSizeChange={setPageSize}
+          />
+        }
+      />
     </div>
   )
 }

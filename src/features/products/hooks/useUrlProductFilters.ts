@@ -18,11 +18,12 @@ export interface UseUrlProductFiltersReturn {
   setSearch: (q: string) => void
   setCategory: (category: string) => void
   setPage: (page: number) => void
+  setPageSize: (pageSize: number) => void
   setSort: (sortBy?: string, order?: 'asc' | 'desc') => void
   resetFilters: () => void
 }
 
-const DEFAULT_PAGE_LIMIT = 20
+const DEFAULT_PAGE_LIMIT = 10
 
 export function useUrlProductFilters(): UseUrlProductFiltersReturn {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -31,13 +32,14 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
   const category = searchParams.get('category') || ''
   const rawPage = parseInt(searchParams.get('page') || '1', 10)
   const page = Number.isNaN(rawPage) || rawPage < 1 ? 1 : rawPage
+  const rawLimit = parseInt(searchParams.get('limit') || String(DEFAULT_PAGE_LIMIT), 10)
+  const limit = Number.isNaN(rawLimit) || rawLimit < 1 ? DEFAULT_PAGE_LIMIT : rawLimit
+  const skip = (page - 1) * limit
+
   const sortBy = searchParams.get('sortBy') || undefined
   const rawOrder = searchParams.get('order')
   const order: 'asc' | 'desc' | undefined =
     rawOrder === 'desc' || rawOrder === 'asc' ? rawOrder : undefined
-
-  const limit = DEFAULT_PAGE_LIMIT
-  const skip = (page - 1) * limit
 
   const filters: UrlProductFilters = useMemo(
     () => ({
@@ -126,6 +128,26 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
     [setSearchParams],
   )
 
+  const setPageSize = useCallback(
+    (newPageSize: number) => {
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev)
+          const safeSize = Math.max(1, Math.floor(newPageSize))
+          if (safeSize !== DEFAULT_PAGE_LIMIT) {
+            next.set('limit', String(safeSize))
+          } else {
+            next.delete('limit')
+          }
+          next.delete('page')
+          return next
+        },
+        { replace: true },
+      )
+    },
+    [setSearchParams],
+  )
+
   const setSort = useCallback(
     (newSortBy?: string, newOrder?: 'asc' | 'desc') => {
       setSearchParams(
@@ -157,6 +179,7 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
     setSearch,
     setCategory,
     setPage,
+    setPageSize,
     setSort,
     resetFilters,
   }

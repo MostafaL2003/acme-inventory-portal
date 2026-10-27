@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import type { Product } from '../types'
 import { SAMPLE_IMAGE_PRODUCTS } from '../constants'
 import { ProductRow } from './ProductRow'
@@ -13,6 +13,7 @@ interface ProductTableProps {
   onToggleSelectAll?: (ids: number[]) => void
   onAction?: (product: Product) => void
   onResetFilters?: () => void
+  pagination?: ReactNode
 }
 
 export function ProductTable({
@@ -23,6 +24,7 @@ export function ProductTable({
   onToggleSelectAll,
   onAction,
   onResetFilters,
+  pagination,
 }: ProductTableProps) {
   const [internalSelectedIds, setInternalSelectedIds] = useState<number[]>([1])
 
@@ -101,6 +103,8 @@ export function ProductTable({
           )}
         </table>
       </div>
+
+      {pagination}
     </div>
   )
 }
