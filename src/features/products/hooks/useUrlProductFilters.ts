@@ -33,6 +33,7 @@ export interface UseUrlProductFiltersReturn {
 }
 
 const DEFAULT_PAGE_LIMIT = 20
+const FILTER_KEYS = ['q', 'category', 'status', 'warehouse', 'stockLevel', 'priceRange'] as const
 
 export function useUrlProductFilters(): UseUrlProductFiltersReturn {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -94,12 +95,26 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
         (prev) => {
           const next = new URLSearchParams(prev)
           const trimmed = value?.trim()
-          if (trimmed && trimmed !== 'all') {
-            next.set(key, trimmed)
+          const normalized = trimmed && trimmed !== 'all' ? trimmed : undefined
+          const current = next.get(key) || undefined
+
+          if (current === normalized) {
+            return prev
+          }
+
+          if (normalized) {
+            next.set(key, normalized)
           } else {
             next.delete(key)
           }
-          next.delete('page')
+
+          const hasAnyFilter = FILTER_KEYS.some((k) => next.has(k))
+          if (hasAnyFilter) {
+            next.set('page', '1')
+          } else {
+            next.delete('page')
+          }
+
           return next
         },
         { replace: true },
@@ -124,8 +139,13 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev)
-          if (newPage > 1) next.set('page', String(newPage))
-          else next.delete('page')
+          const safePage = Math.max(1, Math.floor(newPage))
+          const hasAnyFilter = FILTER_KEYS.some((k) => next.has(k))
+          if (safePage > 1 || hasAnyFilter) {
+            next.set('page', String(safePage))
+          } else {
+            next.delete('page')
+          }
           return next
         },
         { replace: true },
