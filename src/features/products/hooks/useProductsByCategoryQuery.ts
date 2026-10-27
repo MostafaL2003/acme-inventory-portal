@@ -1,4 +1,4 @@
-import { useQuery, type UseQueryResult } from '@tanstack/react-query'
+import { keepPreviousData, useQuery, type UseQueryResult } from '@tanstack/react-query'
 import { fetchProducts } from '../api'
 import type { ProductQueryParams, ProductsResponse } from '../types'
 
@@ -11,6 +11,7 @@ export function useProductsByCategoryQuery(
   return useQuery({
     queryKey: ['products', 'category', category, { limit, skip, sortBy, order }],
     queryFn: () => fetchProducts({ ...params, category }),
+    placeholderData: keepPreviousData,
     enabled: Boolean(category && category.trim() !== '' && category !== 'all'),
   })
 }
