@@ -5,6 +5,7 @@ export { StockStatusBadge } from './components/StockStatusBadge'
 export { ProductTableSkeleton } from './components/ProductTableSkeleton'
 export { EmptyProductsState } from './components/EmptyProductsState'
 export { ProductFilterToolbar } from './components/ProductFilterToolbar'
+export { PaginationBar, type PaginationBarProps } from './components/PaginationBar'
 export type {
   Product,
   ProductsResponse,
