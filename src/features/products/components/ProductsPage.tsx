@@ -1,9 +1,10 @@
 import { Plus, ChevronDown } from 'lucide-react'
 import { ProductTable } from './ProductTable'
+import { ProductFilterToolbar } from './ProductFilterToolbar'
 
 export function ProductsPage() {
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
@@ -32,6 +33,8 @@ export function ProductsPage() {
           </button>
         </div>
       </div>
+
+      <ProductFilterToolbar />
 
       <ProductTable />
     </div>
