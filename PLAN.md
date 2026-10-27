@@ -90,7 +90,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Enable `placeholderData: keepPreviousData` on `useProductsQuery` so pagination and filter transitions do not flash full-screen loading skeletons.
 - **TICKET-302: Build Slide-Over Edit Product Drawer UI**
   - [x] Create `EditProductDrawer.tsx` with a backdrop overlay, Escape-key close handler, and controlled form fields for `title`, `price`, `stock`, and `category`.
-  - [ ] Extract form state and field validation (non-negative price, integer stock `>= 0`, required title) into a dedicated `useProductForm.ts` hook.
+  - [x] Extract form state and field validation (non-negative price, integer stock `>= 0`, required title) into a dedicated `useProductForm.ts` hook.
 - **TICKET-303: Implement Optimistic/Cache-Synced `useMutation`**
   - [ ] Create `useUpdateProductMutation.ts` calling `PUT https://dummyjson.com/products/:id`.
   - [ ] Use `queryClient.setQueriesData` in `onSuccess` (or `onMutate` optimistic update with rollback) so edited product rows immediately reflect changes in the table without losing DummyJSON's simulated state.

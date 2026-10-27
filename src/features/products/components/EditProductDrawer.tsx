@@ -1,6 +1,7 @@
-import { useState, useEffect, type FormEvent } from 'react'
+import { useEffect } from 'react'
 import { X, Plus, Minus, ChevronDown } from 'lucide-react'
 import type { Product } from '../types'
+import { useProductForm } from '../hooks/useProductForm'
 
 export interface EditProductDrawerProps {
   isOpen: boolean
@@ -22,19 +23,19 @@ export function EditProductDrawer({
   onSave,
   isSaving = false,
 }: EditProductDrawerProps) {
-  const [prevProductId, setPrevProductId] = useState<number | null>(product?.id ?? null)
-  const [title, setTitle] = useState(product?.title ?? '')
-  const [price, setPrice] = useState<string | number>(product?.price ?? '')
-  const [stock, setStock] = useState<string | number>(product?.stock ?? 0)
-  const [category, setCategory] = useState(product?.category ?? '')
-
-  if (product && product.id !== prevProductId) {
-    setPrevProductId(product.id)
-    setTitle(product.title)
-    setPrice(product.price)
-    setStock(product.stock)
-    setCategory(product.category)
-  }
+  const {
+    values,
+    errors,
+    setTitle,
+    setPrice,
+    setStock,
+    setCategory,
+    incrementStock,
+    decrementStock,
+    handleSubmit,
+  } = useProductForm(product, (updated) => {
+    onSave?.(updated)
+  })
 
   useEffect(() => {
     if (!isOpen) return
@@ -49,11 +50,6 @@ export function EditProductDrawer({
   }, [isOpen])
 
   if (!isOpen) return null
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    onSave?.({ title: title.trim(), price: Number(price) || 0, stock: Number(stock) || 0, category })
-  }
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -93,11 +89,14 @@ export function EditProductDrawer({
               <input
                 id="drawer-title"
                 type="text"
-                value={title}
+                value={values.title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Enter product title"
-                className="w-full px-3.5 py-2 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className={`w-full px-3.5 py-2 bg-white border rounded-lg text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${
+                  errors.title ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 focus:ring-blue-500 focus:border-blue-500'
+                }`}
               />
+              {errors.title && <p className="text-xs text-rose-600 mt-1">{errors.title}</p>}
             </div>
 
             <div>
@@ -107,20 +106,25 @@ export function EditProductDrawer({
                 type="number"
                 step="0.01"
                 min="0"
-                value={price}
+                value={values.price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="0.00"
-                className="w-full px-3.5 py-2 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className={`w-full px-3.5 py-2 bg-white border rounded-lg text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-colors ${
+                  errors.price ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 focus:ring-blue-500 focus:border-blue-500'
+                }`}
               />
+              {errors.price && <p className="text-xs text-rose-600 mt-1">{errors.price}</p>}
             </div>
 
             <div>
               <label htmlFor="drawer-stock" className="block text-sm font-medium text-slate-700 mb-1.5">Stock Quantity</label>
-              <div className="flex items-center rounded-lg border border-slate-300 bg-white overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+              <div className={`flex items-center rounded-lg border bg-white overflow-hidden focus-within:ring-2 ${
+                errors.stock ? 'border-rose-400 focus-within:ring-rose-400' : 'border-slate-300 focus-within:ring-blue-500 focus-within:border-blue-500'
+              }`}>
                 <button
                   type="button"
                   aria-label="Decrease stock"
-                  onClick={() => setStock((prev) => Math.max(0, (Number(prev) || 0) - 1))}
+                  onClick={decrementStock}
                   className="px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-50 border-r border-slate-300 transition-colors cursor-pointer"
                 >
                   <Minus className="w-4 h-4" />
@@ -129,19 +133,20 @@ export function EditProductDrawer({
                   id="drawer-stock"
                   type="number"
                   min="0"
-                  value={stock}
+                  value={values.stock}
                   onChange={(e) => setStock(e.target.value)}
                   className="w-full py-2 text-center text-sm font-medium text-slate-900 focus:outline-none"
                 />
                 <button
                   type="button"
                   aria-label="Increase stock"
-                  onClick={() => setStock((prev) => (Number(prev) || 0) + 1)}
+                  onClick={incrementStock}
                   className="px-3 py-2 text-slate-600 hover:text-slate-900 hover:bg-slate-50 border-l border-slate-300 transition-colors cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
+              {errors.stock && <p className="text-xs text-rose-600 mt-1">{errors.stock}</p>}
             </div>
 
             <div>
@@ -149,9 +154,11 @@ export function EditProductDrawer({
               <div className="relative">
                 <select
                   id="drawer-category"
-                  value={category}
+                  value={values.category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full appearance-none px-3.5 py-2 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors cursor-pointer pr-10"
+                  className={`w-full appearance-none px-3.5 py-2 bg-white border rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 transition-colors cursor-pointer pr-10 ${
+                    errors.category ? 'border-rose-400 focus:ring-rose-400' : 'border-slate-300 focus:ring-blue-500 focus:border-blue-500'
+                  }`}
                 >
                   {categories.map((cat) => (
                     <option key={cat} value={cat}>{formatCategory(cat)}</option>
@@ -159,6 +166,7 @@ export function EditProductDrawer({
                 </select>
                 <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
+              {errors.category && <p className="text-xs text-rose-600 mt-1">{errors.category}</p>}
             </div>
           </div>
 

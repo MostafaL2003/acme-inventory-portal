@@ -28,3 +28,9 @@ export {
 export { useProductsQuery } from './hooks/useProductsQuery'
 export { useCategoriesQuery } from './hooks/useCategoriesQuery'
 export { useProductsByCategoryQuery } from './hooks/useProductsByCategoryQuery'
+export {
+  useProductForm,
+  type ProductFormValues,
+  type ProductFormErrors,
+  type UseProductFormReturn,
+} from './hooks/useProductForm'
