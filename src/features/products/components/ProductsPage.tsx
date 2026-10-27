@@ -6,7 +6,7 @@ import { ProductFilterToolbar } from './ProductFilterToolbar'
 import { PaginationBar } from './PaginationBar'
 
 export function ProductsPage() {
-  const { filters, setPage } = useUrlProductFilters()
+  const { filters, setPage, setPageSize } = useUrlProductFilters()
 
   return (
     <div className="space-y-4">
@@ -46,9 +46,10 @@ export function ProductsPage() {
           <PaginationBar
             currentPage={filters.page}
             totalItems={1248}
-            pageSize={10}
+            pageSize={filters.limit}
             pageSizeOptions={[10, 20, 50, 100]}
             onPageChange={setPage}
+            onPageSizeChange={setPageSize}
           />
         }
       />

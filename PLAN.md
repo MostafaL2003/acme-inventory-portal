@@ -66,7 +66,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Reset pagination parameter `page=1` automatically whenever `q` or `category` changes.
 - **TICKET-204: Build URL-Synced Pagination Controls**
   - [x] Create `PaginationBar.tsx` displaying current item range (`Showing 1–20 of 194`) and Previous/Next page buttons.
-  - [ ] Wire pagination clicks to update `?page=` in `useSearchParams` and compute `skip = (page - 1) * limit`.
+  - [x] Wire pagination clicks to update `?page=` in `useSearchParams` and compute `skip = (page - 1) * limit`.
 
 #### Definition of Done (Acceptance Criteria)
 
@@ -214,7 +214,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Reset pagination parameter `page=1` automatically whenever `q` or `category` changes.
 - **TICKET-204: Build URL-Synced Pagination Controls**
   - [x] Create `PaginationBar.tsx` displaying current item range (`Showing 1–20 of 194`) and Previous/Next page buttons.
-  - [ ] Wire pagination clicks to update `?page=` in `useSearchParams` and compute `skip = (page - 1) * limit`.
+  - [x] Wire pagination clicks to update `?page=` in `useSearchParams` and compute `skip = (page - 1) * limit`.
 
 #### Definition of Done (Acceptance Criteria)
 
