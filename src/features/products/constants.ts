@@ -94,47 +94,36 @@ export const SAMPLE_IMAGE_PRODUCTS: Product[] = [
   },
 ]
 
-export const CATEGORY_FILTER_OPTIONS = [
-  { value: 'Machinery Parts', label: 'Machinery Parts' },
-  { value: 'Plumbing & Piping', label: 'Plumbing & Piping' },
-  { value: 'Electrical', label: 'Electrical' },
-  { value: 'Packaging', label: 'Packaging' },
-  { value: 'Safety Gear', label: 'Safety Gear' },
-  { value: 'Raw Materials', label: 'Raw Materials' },
-  { value: 'Hardware & Tools', label: 'Hardware & Tools' },
+export const DEFAULT_CATEGORY_SLUGS: string[] = [
+  'beauty',
+  'fragrances',
+  'furniture',
+  'groceries',
+  'home-decoration',
+  'kitchen-accessories',
+  'laptops',
+  'mens-shirts',
+  'mens-shoes',
+  'mens-watches',
+  'mobile-accessories',
+  'motorcycle',
+  'skin-care',
+  'smartphones',
+  'sports-accessories',
+  'sunglasses',
+  'tablets',
+  'tops',
+  'vehicle',
+  'womens-bags',
+  'womens-dresses',
+  'womens-jewellery',
+  'womens-shoes',
+  'womens-watches',
 ]
 
-export const STATUS_FILTER_OPTIONS = [
-  { value: 'all', label: 'All Statuses' },
-  { value: 'in-stock', label: 'In Stock' },
-  { value: 'low-stock', label: 'Low Stock' },
-  { value: 'out-of-stock', label: 'Out of Stock' },
-  { value: 'backordered', label: 'Backordered' },
-]
-
-export const WAREHOUSE_FILTER_OPTIONS = [
-  { value: 'all', label: 'All Warehouses' },
-  { value: 'Main Warehouse', label: 'Main Warehouse' },
-  { value: 'Yard-B', label: 'Yard-B' },
-  { value: 'Aisle 1-A', label: 'Aisle 1-A' },
-  { value: 'Aisle 2-E', label: 'Aisle 2-E' },
-  { value: 'Aisle 3-B', label: 'Aisle 3-B' },
-  { value: 'Aisle 8-A', label: 'Aisle 8-A' },
-  { value: 'Aisle 12-C', label: 'Aisle 12-C' },
-  { value: 'Aisle 15-F', label: 'Aisle 15-F' },
-]
-
-export const STOCK_LEVEL_FILTER_OPTIONS = [
-  { value: 'all', label: 'All Stock Levels' },
-  { value: 'in-stock', label: 'In Stock (>20)' },
-  { value: 'low-stock', label: 'Low Stock (1-20)' },
-  { value: 'out-of-stock', label: 'Out of Stock (0)' },
-]
-
-export const PRICE_RANGE_FILTER_OPTIONS = [
-  { value: 'all', label: 'All Prices' },
-  { value: '0-25', label: 'Under $25' },
-  { value: '25-50', label: '$25 - $50' },
-  { value: '50-100', label: '$50 - $100' },
-  { value: '100+', label: 'Over $100' },
-]
+export const PLACEHOLDER_FILTER_LABELS = [
+  'Status',
+  'Warehouse',
+  'Stock Level',
+  'Price Range',
+] as const

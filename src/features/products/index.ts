@@ -5,7 +5,6 @@ export { StockStatusBadge } from './components/StockStatusBadge'
 export { ProductTableSkeleton } from './components/ProductTableSkeleton'
 export { EmptyProductsState } from './components/EmptyProductsState'
 export { ProductFilterToolbar } from './components/ProductFilterToolbar'
-export { FilterDropdown, type FilterOption } from './components/FilterDropdown'
 export type {
   Product,
   ProductsResponse,

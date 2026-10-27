@@ -5,11 +5,6 @@ import type { ProductQueryParams } from '../types'
 export interface UrlProductFilters {
   q: string
   category: string
-  categories: string[]
-  status?: string
-  warehouse?: string
-  stockLevel?: string
-  priceRange?: string
   page: number
   limit: number
   skip: number
@@ -22,33 +17,18 @@ export interface UseUrlProductFiltersReturn {
   queryParams: ProductQueryParams
   setSearch: (q: string) => void
   setCategory: (category: string) => void
-  setCategories: (categories: string[]) => void
-  setStatus: (status?: string) => void
-  setWarehouse: (warehouse?: string) => void
-  setStockLevel: (stockLevel?: string) => void
-  setPriceRange: (priceRange?: string) => void
   setPage: (page: number) => void
   setSort: (sortBy?: string, order?: 'asc' | 'desc') => void
   resetFilters: () => void
 }
 
 const DEFAULT_PAGE_LIMIT = 20
-const FILTER_KEYS = ['q', 'category', 'status', 'warehouse', 'stockLevel', 'priceRange'] as const
 
 export function useUrlProductFilters(): UseUrlProductFiltersReturn {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const q = searchParams.get('q') || ''
   const category = searchParams.get('category') || ''
-  const categories = useMemo(
-    () => (category ? category.split(',').map((c) => c.trim()).filter(Boolean) : []),
-    [category],
-  )
-  const status = searchParams.get('status') || undefined
-  const warehouse = searchParams.get('warehouse') || undefined
-  const stockLevel = searchParams.get('stockLevel') || undefined
-  const priceRange = searchParams.get('priceRange') || undefined
-
   const rawPage = parseInt(searchParams.get('page') || '1', 10)
   const page = Number.isNaN(rawPage) || rawPage < 1 ? 1 : rawPage
   const sortBy = searchParams.get('sortBy') || undefined
@@ -63,18 +43,13 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
     () => ({
       q,
       category,
-      categories,
-      status,
-      warehouse,
-      stockLevel,
-      priceRange,
       page,
       limit,
       skip,
       sortBy,
       order,
     }),
-    [q, category, categories, status, warehouse, stockLevel, priceRange, page, limit, skip, sortBy, order],
+    [q, category, page, limit, skip, sortBy, order],
   )
 
   const queryParams: ProductQueryParams = useMemo(
@@ -89,12 +64,12 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
     [q, category, limit, skip, sortBy, order],
   )
 
-  const updateParam = useCallback(
-    (key: string, value: string | undefined) => {
+  const updateFilterParam = useCallback(
+    (key: 'q' | 'category', value: string) => {
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev)
-          const trimmed = value?.trim()
+          const trimmed = value.trim()
           const normalized = trimmed && trimmed !== 'all' ? trimmed : undefined
           const current = next.get(key) || undefined
 
@@ -108,8 +83,7 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
             next.delete(key)
           }
 
-          const hasAnyFilter = FILTER_KEYS.some((k) => next.has(k))
-          if (hasAnyFilter) {
+          if (next.has('q') || next.has('category')) {
             next.set('page', '1')
           } else {
             next.delete('page')
@@ -123,16 +97,15 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
     [setSearchParams],
   )
 
-  const setSearch = useCallback((query: string) => updateParam('q', query), [updateParam])
-  const setCategory = useCallback((cat: string) => updateParam('category', cat), [updateParam])
-  const setCategories = useCallback(
-    (cats: string[]) => updateParam('category', cats.length > 0 ? cats.join(',') : undefined),
-    [updateParam],
+  const setSearch = useCallback(
+    (newQuery: string) => updateFilterParam('q', newQuery),
+    [updateFilterParam],
   )
-  const setStatus = useCallback((st?: string) => updateParam('status', st), [updateParam])
-  const setWarehouse = useCallback((wh?: string) => updateParam('warehouse', wh), [updateParam])
-  const setStockLevel = useCallback((sl?: string) => updateParam('stockLevel', sl), [updateParam])
-  const setPriceRange = useCallback((pr?: string) => updateParam('priceRange', pr), [updateParam])
+
+  const setCategory = useCallback(
+    (newCategory: string) => updateFilterParam('category', newCategory),
+    [updateFilterParam],
+  )
 
   const setPage = useCallback(
     (newPage: number) => {
@@ -140,8 +113,7 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
         (prev) => {
           const next = new URLSearchParams(prev)
           const safePage = Math.max(1, Math.floor(newPage))
-          const hasAnyFilter = FILTER_KEYS.some((k) => next.has(k))
-          if (safePage > 1 || hasAnyFilter) {
+          if (safePage > 1 || next.has('q') || next.has('category')) {
             next.set('page', String(safePage))
           } else {
             next.delete('page')
@@ -184,11 +156,6 @@ export function useUrlProductFilters(): UseUrlProductFiltersReturn {
     queryParams,
     setSearch,
     setCategory,
-    setCategories,
-    setStatus,
-    setWarehouse,
-    setStockLevel,
-    setPriceRange,
     setPage,
     setSort,
     resetFilters,

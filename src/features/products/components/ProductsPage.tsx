@@ -1,4 +1,5 @@
 import { Plus, ChevronDown } from 'lucide-react'
+import { DEFAULT_CATEGORY_SLUGS } from '../constants'
 import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
 
@@ -34,7 +35,7 @@ export function ProductsPage() {
         </div>
       </div>
 
-      <ProductFilterToolbar />
+      <ProductFilterToolbar categories={DEFAULT_CATEGORY_SLUGS} />
 
       <ProductTable />
     </div>
