@@ -1,12 +1,18 @@
 import { Plus, ChevronDown } from 'lucide-react'
 import { DEFAULT_CATEGORY_SLUGS } from '../constants'
 import { useUrlProductFilters } from '../hooks/useUrlProductFilters'
+import { useProductsQuery } from '../hooks/useProductsQuery'
+import { useCategoriesQuery } from '../hooks/useCategoriesQuery'
 import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
 import { PaginationBar } from './PaginationBar'
 
 export function ProductsPage() {
-  const { filters, setPage, setPageSize } = useUrlProductFilters()
+  const { filters, queryParams, setPage, setPageSize, resetFilters } = useUrlProductFilters()
+  const { data: productsData, isLoading } = useProductsQuery(queryParams)
+  const { data: categories = DEFAULT_CATEGORY_SLUGS } = useCategoriesQuery()
+
+  const totalItems = productsData?.total ?? 0
 
   return (
     <div className="space-y-4">
@@ -16,7 +22,7 @@ export function ProductsPage() {
             Product Catalog
           </h1>
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-200/70 text-slate-600">
-            1,248 items
+            {isLoading ? '...' : totalItems.toLocaleString()} items
           </span>
         </div>
 
@@ -39,13 +45,16 @@ export function ProductsPage() {
         </div>
       </div>
 
-      <ProductFilterToolbar categories={DEFAULT_CATEGORY_SLUGS} />
+      <ProductFilterToolbar categories={categories} />
 
       <ProductTable
+        products={productsData?.products ?? []}
+        isLoading={isLoading}
+        onResetFilters={resetFilters}
         pagination={
           <PaginationBar
             currentPage={filters.page}
-            totalItems={1248}
+            totalItems={totalItems}
             pageSize={filters.limit}
             pageSizeOptions={[10, 20, 50, 100]}
             onPageChange={setPage}

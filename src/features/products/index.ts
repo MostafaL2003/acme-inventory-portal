@@ -24,3 +24,6 @@ export {
   type UrlProductFilters,
   type UseUrlProductFiltersReturn,
 } from './hooks/useUrlProductFilters'
+export { useProductsQuery } from './hooks/useProductsQuery'
+export { useCategoriesQuery } from './hooks/useCategoriesQuery'
+export { useProductsByCategoryQuery } from './hooks/useProductsByCategoryQuery'
