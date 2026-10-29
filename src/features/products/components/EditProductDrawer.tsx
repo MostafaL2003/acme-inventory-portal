@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { X, Plus, Minus, ChevronDown } from 'lucide-react'
+import { X, Plus, Minus, ChevronDown, Loader2 } from 'lucide-react'
 import type { Product } from '../types'
 import { useProductForm } from '../hooks/useProductForm'
 
@@ -34,15 +34,15 @@ export function EditProductDrawer({
     decrementStock,
     handleSubmit,
   } = useProductForm(product, (updated) => {
-    onSave?.(updated)
+    if (!isSaving) onSave?.(updated)
   })
 
   useEffect(() => {
     if (!isOpen) return
-    const handleKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
+    const handleKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && !isSaving && onClose()
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, onClose])
+  }, [isOpen, isSaving, onClose])
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
@@ -53,7 +53,7 @@ export function EditProductDrawer({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
-      <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity" onClick={onClose} aria-hidden="true" />
+      <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity" onClick={() => !isSaving && onClose()} aria-hidden="true" />
 
       <aside aria-label="Edit Product Details" className="relative z-10 w-full max-w-md bg-white shadow-2xl flex flex-col h-full overflow-hidden">
         <header className="px-6 py-5 border-b border-slate-200 flex items-start justify-between">
@@ -63,9 +63,10 @@ export function EditProductDrawer({
           </div>
           <button
             type="button"
+            disabled={isSaving}
             onClick={onClose}
             aria-label="Close edit drawer"
-            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer disabled:opacity-50"
           >
             <X className="w-5 h-5" />
           </button>
@@ -174,14 +175,16 @@ export function EditProductDrawer({
             <button
               type="submit"
               disabled={isSaving}
-              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg shadow-xs transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSaving ? 'Saving...' : 'Save Changes'}
+              {isSaving && <Loader2 className="w-4 h-4 animate-spin" />}
+              <span>{isSaving ? 'Saving...' : 'Save Changes'}</span>
             </button>
             <button
               type="button"
+              disabled={isSaving}
               onClick={onClose}
-              className="px-4 py-2 text-slate-700 hover:text-slate-900 font-medium text-sm rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+              className="px-4 py-2 text-slate-700 hover:text-slate-900 font-medium text-sm rounded-lg hover:bg-slate-100 transition-colors cursor-pointer disabled:opacity-50"
             >
               Cancel
             </button>

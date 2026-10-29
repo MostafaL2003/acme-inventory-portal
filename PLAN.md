@@ -94,7 +94,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - **TICKET-303: Implement Optimistic/Cache-Synced `useMutation`**
   - [x] Create `useUpdateProductMutation.ts` calling `PUT https://dummyjson.com/products/:id`.
   - [x] Use `queryClient.setQueriesData` in `onSuccess` (or `onMutate` optimistic update with rollback) so edited product rows immediately reflect changes in the table without losing DummyJSON's simulated state.
-  - [ ] Display inline saving spinner on the submit button and a dismissible feedback banner/toast upon mutation completion or failure.
+  - [x] Display inline saving spinner on the submit button and a dismissible feedback banner/toast upon mutation completion or failure.
 
 #### Definition of Done (Acceptance Criteria)
 

@@ -2,4 +2,4 @@ export { AppShell } from './layout/AppShell'
 export { SidebarNav } from './layout/SidebarNav'
 export { TopHeader } from './layout/TopHeader'
 export { NotFoundPage } from './feedback/NotFoundPage'
-
+export { FeedbackToast, type FeedbackToastProps } from './feedback/FeedbackToast'
