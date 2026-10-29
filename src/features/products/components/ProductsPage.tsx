@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { Plus, ChevronDown } from 'lucide-react'
 import { FeedbackToast } from '@/shared/components'
+import { useAppDispatch, useAppSelector } from '@/shared/hooks'
+import { openEditDrawer, closeEditDrawer } from '@/shared/store'
 import { DEFAULT_CATEGORY_SLUGS } from '../constants'
 import { useUrlProductFilters } from '../hooks/useUrlProductFilters'
 import { useProductsQuery } from '../hooks/useProductsQuery'
@@ -10,7 +13,7 @@ import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
 import { PaginationBar } from './PaginationBar'
 import { EditProductDrawer } from './EditProductDrawer'
-import type { Product } from '../types'
+import type { Product, ProductsResponse } from '../types'
 
 interface ToastState {
   type: 'success' | 'error'
@@ -18,12 +21,28 @@ interface ToastState {
 }
 
 export function ProductsPage() {
+  const dispatch = useAppDispatch()
+  const activeEditProductId = useAppSelector((state) => state.ui.activeEditProductId)
+  const queryClient = useQueryClient()
+
   const { filters, queryParams, setPage, setPageSize, resetFilters } = useUrlProductFilters()
   const { data: productsData, isLoading } = useProductsQuery(queryParams)
   const { data: categories = DEFAULT_CATEGORY_SLUGS } = useCategoriesQuery()
   const updateProductMutation = useUpdateProductMutation()
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [toast, setToast] = useState<ToastState | null>(null)
+
+  const editingProduct = useMemo<Product | null>(() => {
+    if (activeEditProductId === null) return null
+    const fromCurrentPage = productsData?.products.find((p) => p.id === activeEditProductId)
+    if (fromCurrentPage) return fromCurrentPage
+
+    const cachedEntries = queryClient.getQueriesData<ProductsResponse>({ queryKey: ['products'] })
+    for (const [, cachedData] of cachedEntries) {
+      const found = cachedData?.products.find((p) => p.id === activeEditProductId)
+      if (found) return found
+    }
+    return null
+  }, [activeEditProductId, productsData, queryClient])
 
   const totalItems = productsData?.total ?? 0
 
@@ -34,7 +53,7 @@ export function ProductsPage() {
       { id: editingProduct.id, data: updatedFields },
       {
         onSuccess: (updated) => {
-          setEditingProduct(null)
+          dispatch(closeEditDrawer())
           setToast({
             type: 'success',
             message: `"${updatedFields.title || updated.title}" updated successfully.`,
@@ -86,7 +105,7 @@ export function ProductsPage() {
       <ProductTable
         products={productsData?.products ?? []}
         isLoading={isLoading}
-        onAction={(product) => setEditingProduct(product)}
+        onAction={(product) => dispatch(openEditDrawer(product.id))}
         onResetFilters={resetFilters}
         pagination={
           <PaginationBar
@@ -102,7 +121,7 @@ export function ProductsPage() {
 
       <EditProductDrawer
         isOpen={Boolean(editingProduct)}
-        onClose={() => setEditingProduct(null)}
+        onClose={() => dispatch(closeEditDrawer())}
         product={editingProduct}
         categories={categories}
         onSave={handleSaveProduct}
@@ -121,3 +140,4 @@ export function ProductsPage() {
 }
 
 export default ProductsPage
+
