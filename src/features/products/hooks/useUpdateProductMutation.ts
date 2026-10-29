@@ -1,6 +1,10 @@
-import { useMutation, type UseMutationResult } from '@tanstack/react-query'
+import {
+  useMutation,
+  useQueryClient,
+  type UseMutationResult,
+} from '@tanstack/react-query'
 import { updateProduct } from '../api'
-import type { Product } from '../types'
+import type { Product, ProductsResponse } from '../types'
 
 export interface UpdateProductVariables {
   id: number
@@ -12,8 +16,27 @@ export function useUpdateProductMutation(): UseMutationResult<
   Error,
   UpdateProductVariables
 > {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: ({ id, data }: UpdateProductVariables) => updateProduct(id, data),
+    onSuccess: (updatedProduct, variables) => {
+      queryClient.setQueriesData<ProductsResponse>(
+        { queryKey: ['products'] },
+        (oldData) => {
+          if (!oldData) return oldData
+
+          return {
+            ...oldData,
+            products: oldData.products.map((product) =>
+              product.id === variables.id
+                ? { ...product, ...updatedProduct, ...variables.data }
+                : product,
+            ),
+          }
+        },
+      )
+    },
   })
 }
 
