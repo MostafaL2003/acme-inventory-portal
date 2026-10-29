@@ -1,22 +1,54 @@
 import { useState } from 'react'
 import { Plus, ChevronDown } from 'lucide-react'
+import { FeedbackToast } from '@/shared/components'
 import { DEFAULT_CATEGORY_SLUGS } from '../constants'
 import { useUrlProductFilters } from '../hooks/useUrlProductFilters'
 import { useProductsQuery } from '../hooks/useProductsQuery'
 import { useCategoriesQuery } from '../hooks/useCategoriesQuery'
+import { useUpdateProductMutation } from '../hooks/useUpdateProductMutation'
 import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
 import { PaginationBar } from './PaginationBar'
 import { EditProductDrawer } from './EditProductDrawer'
 import type { Product } from '../types'
 
+interface ToastState {
+  type: 'success' | 'error'
+  message: string
+}
+
 export function ProductsPage() {
   const { filters, queryParams, setPage, setPageSize, resetFilters } = useUrlProductFilters()
   const { data: productsData, isLoading } = useProductsQuery(queryParams)
   const { data: categories = DEFAULT_CATEGORY_SLUGS } = useCategoriesQuery()
+  const updateProductMutation = useUpdateProductMutation()
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
+  const [toast, setToast] = useState<ToastState | null>(null)
 
   const totalItems = productsData?.total ?? 0
+
+  const handleSaveProduct = (updatedFields: Partial<Product>) => {
+    if (!editingProduct || updateProductMutation.isPending) return
+
+    updateProductMutation.mutate(
+      { id: editingProduct.id, data: updatedFields },
+      {
+        onSuccess: (updated) => {
+          setEditingProduct(null)
+          setToast({
+            type: 'success',
+            message: `"${updatedFields.title || updated.title}" updated successfully.`,
+          })
+        },
+        onError: (err) => {
+          setToast({
+            type: 'error',
+            message: err.message || 'Failed to update product. Please try again.',
+          })
+        },
+      },
+    )
+  }
 
   return (
     <div className="space-y-4">
@@ -73,7 +105,17 @@ export function ProductsPage() {
         onClose={() => setEditingProduct(null)}
         product={editingProduct}
         categories={categories}
+        onSave={handleSaveProduct}
+        isSaving={updateProductMutation.isPending}
       />
+
+      {toast && (
+        <FeedbackToast
+          type={toast.type}
+          message={toast.message}
+          onDismiss={() => setToast(null)}
+        />
+      )}
     </div>
   )
 }

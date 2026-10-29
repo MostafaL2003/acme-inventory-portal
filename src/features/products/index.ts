@@ -34,3 +34,7 @@ export {
   type ProductFormErrors,
   type UseProductFormReturn,
 } from './hooks/useProductForm'
+export {
+  useUpdateProductMutation,
+  type UpdateProductVariables,
+} from './hooks/useUpdateProductMutation'
