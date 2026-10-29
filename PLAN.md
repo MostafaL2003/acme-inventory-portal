@@ -113,7 +113,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 #### Tickets
 
 - **TICKET-401: Setup Redux Store & UI Slices**
-  - [ ] Configure the Redux store in `src/app/store.ts` and export typed hooks (`useAppDispatch`, `useAppSelector`) in `src/shared/hooks/useRedux.ts`.
+  - [x] Configure the Redux store in `src/app/store.ts` and export typed hooks (`useAppDispatch`, `useAppSelector`) in `src/shared/hooks/useRedux.ts`.
   - [ ] Create `selectionSlice.ts` in `src/features/products/store/` managing `selectedProductIds: number[]` with actions: `toggleSelectId`, `selectAllIds`, and `clearSelection`.
   - [ ] Create `uiSlice.ts` in `src/shared/store/` managing global modal/drawer states (`isCommandPaletteOpen`, `activeEditProductId`).
 - **TICKET-402: Wire Multi-Row Table Selection**
