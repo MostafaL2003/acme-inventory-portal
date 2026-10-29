@@ -38,3 +38,11 @@ export {
   useUpdateProductMutation,
   type UpdateProductVariables,
 } from './hooks/useUpdateProductMutation'
+export {
+  selectionSlice,
+  selectionReducer,
+  toggleSelectId,
+  selectAllIds,
+  clearSelection,
+  type SelectionState,
+} from './store/selectionSlice'
