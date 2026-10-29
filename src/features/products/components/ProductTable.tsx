@@ -1,6 +1,8 @@
-import { useState, type ReactNode } from 'react'
+import { useRef, useEffect, type ReactNode } from 'react'
+import { useAppDispatch, useAppSelector } from '@/shared/hooks'
 import type { Product } from '../types'
 import { SAMPLE_IMAGE_PRODUCTS } from '../constants'
+import { toggleSelectId, selectAllIds } from '../store/selectionSlice'
 import { ProductRow } from './ProductRow'
 import { ProductTableSkeleton } from './ProductTableSkeleton'
 import { EmptyProductsState } from './EmptyProductsState'
@@ -26,28 +28,41 @@ export function ProductTable({
   onResetFilters,
   pagination,
 }: ProductTableProps) {
-  const [internalSelectedIds, setInternalSelectedIds] = useState<number[]>([1])
+  const dispatch = useAppDispatch()
+  const storeSelectedIds = useAppSelector((state) => state.selection.selectedProductIds)
+  const headerCheckboxRef = useRef<HTMLInputElement>(null)
 
-  const activeSelected = selectedIds !== undefined ? selectedIds : internalSelectedIds
+  const activeSelected = selectedIds !== undefined ? selectedIds : storeSelectedIds
+
+  const allSelected =
+    products.length > 0 && products.every((p) => activeSelected.includes(p.id))
+  const someSelected =
+    products.length > 0 && products.some((p) => activeSelected.includes(p.id))
+
+  useEffect(() => {
+    if (headerCheckboxRef.current) {
+      headerCheckboxRef.current.indeterminate = someSelected && !allSelected
+    }
+  }, [someSelected, allSelected])
 
   const handleToggle = (id: number) => {
     if (onToggleSelect) {
       onToggleSelect(id)
     } else {
-      setInternalSelectedIds((prev) =>
-        prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-      )
+      dispatch(toggleSelectId(id))
     }
   }
 
-  const allSelected =
-    products.length > 0 && products.every((p) => activeSelected.includes(p.id))
-
   const handleSelectAll = () => {
+    const pageIds = products.map((p) => p.id)
+    const nextSelectedIds = allSelected
+      ? activeSelected.filter((id) => !pageIds.includes(id))
+      : Array.from(new Set([...activeSelected, ...pageIds]))
+
     if (onToggleSelectAll) {
-      onToggleSelectAll(allSelected ? [] : products.map((p) => p.id))
+      onToggleSelectAll(nextSelectedIds)
     } else {
-      setInternalSelectedIds(allSelected ? [] : products.map((p) => p.id))
+      dispatch(selectAllIds(nextSelectedIds))
     }
   }
 
@@ -59,8 +74,9 @@ export function ProductTable({
             <tr className="border-b border-slate-200 text-xs font-semibold text-slate-500 bg-white">
               <th className="w-12 px-4 py-3.5 text-center">
                 <input
+                  ref={headerCheckboxRef}
                   type="checkbox"
-                  aria-label="Select all products"
+                  aria-label="Select all products on page"
                   checked={allSelected}
                   onChange={handleSelectAll}
                   className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
@@ -110,3 +126,4 @@ export function ProductTable({
 }
 
 export default ProductTable
+
