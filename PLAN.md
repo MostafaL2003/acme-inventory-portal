@@ -115,7 +115,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 - **TICKET-401: Setup Redux Store & UI Slices**
   - [x] Configure the Redux store in `src/app/store.ts` and export typed hooks (`useAppDispatch`, `useAppSelector`) in `src/shared/hooks/useRedux.ts`.
   - [x] Create `selectionSlice.ts` in `src/features/products/store/` managing `selectedProductIds: number[]` with actions: `toggleSelectId`, `selectAllIds`, and `clearSelection`.
-  - [ ] Create `uiSlice.ts` in `src/shared/store/` managing global modal/drawer states (`isCommandPaletteOpen`, `activeEditProductId`).
+  - [x] Create `uiSlice.ts` in `src/shared/store/` managing global modal/drawer states (`isCommandPaletteOpen`, `activeEditProductId`).
 - **TICKET-402: Wire Multi-Row Table Selection**
   - [ ] Add header "Select All on Page" checkbox (supporting indeterminate state) and per-row checkboxes to `ProductTable.tsx`.
   - [ ] Highlight selected table rows with a subtle Tailwind accent background and keep selection intact across pagination swaps.
