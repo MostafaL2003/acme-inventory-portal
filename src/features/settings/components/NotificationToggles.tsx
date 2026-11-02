@@ -66,3 +66,4 @@ export function NotificationToggles({
 }
 
 export default NotificationToggles
+
