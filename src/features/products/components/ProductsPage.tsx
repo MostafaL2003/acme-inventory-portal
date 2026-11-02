@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Plus, ChevronDown } from 'lucide-react'
 import { FeedbackToast } from '@/shared/components'
 import { useAppDispatch, useAppSelector } from '@/shared/hooks'
@@ -11,6 +11,7 @@ import { useProductsQuery } from '../hooks/useProductsQuery'
 import { useCategoriesQuery } from '../hooks/useCategoriesQuery'
 import { useUpdateProductMutation } from '../hooks/useUpdateProductMutation'
 import { useBatchProductActions } from '../hooks/useBatchProductActions'
+import { fetchProductById } from '../api'
 import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
 import { PaginationBar } from './PaginationBar'
@@ -44,18 +45,39 @@ export function ProductsPage() {
         }),
     })
 
+  const { data: directProduct } = useQuery({
+    queryKey: ['product', activeEditProductId],
+    queryFn: ({ signal }) =>
+      activeEditProductId ? fetchProductById(activeEditProductId, signal) : null,
+    enabled: activeEditProductId !== null,
+  })
+
   const editingProduct = useMemo<Product | null>(() => {
     if (activeEditProductId === null) return null
     const fromCurrentPage = productsData?.products.find((p) => p.id === activeEditProductId)
     if (fromCurrentPage) return fromCurrentPage
+
+    const directCache = queryClient.getQueryData<Product>(['product', activeEditProductId])
+    if (directCache) return directCache
+    if (directProduct && directProduct.id === activeEditProductId) return directProduct
 
     const cachedEntries = queryClient.getQueriesData<ProductsResponse>({ queryKey: ['products'] })
     for (const [, cachedData] of cachedEntries) {
       const found = cachedData?.products.find((p) => p.id === activeEditProductId)
       if (found) return found
     }
+
+    const dashboardQueries = queryClient.getQueriesData<{ lowStockProducts?: Product[] }>({
+      queryKey: ['dashboard'],
+    })
+    for (const [, dashData] of dashboardQueries) {
+      if (dashData?.lowStockProducts && Array.isArray(dashData.lowStockProducts)) {
+        const found = dashData.lowStockProducts.find((p) => p.id === activeEditProductId)
+        if (found) return found
+      }
+    }
     return null
-  }, [activeEditProductId, productsData, queryClient])
+  }, [activeEditProductId, productsData, queryClient, directProduct])
 
   const totalItems = productsData?.total ?? 0
 

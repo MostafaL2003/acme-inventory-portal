@@ -1,27 +1,78 @@
+import { AlertTriangle, AlertCircle } from 'lucide-react'
+import { useInventoryMetrics } from '../hooks/useInventoryMetrics'
+import { MetricStatCard } from './MetricStatCard'
+import { CategoryBreakdownList } from './CategoryBreakdownList'
+import { LowStockWatchlist } from './LowStockWatchlist'
+
 export function DashboardPage() {
+  const {
+    totalSkus,
+    formattedValuation,
+    lowStockCount,
+    outOfStockCount,
+    categoryBreakdown,
+    lowStockProducts,
+    isLoading,
+  } = useInventoryMetrics()
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-slate-900 tracking-tight">Dashboard Overview</h2>
-        <p className="text-sm text-slate-500">Live operational metrics and inventory valuation.</p>
+        <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+          Operations Dashboard
+        </h2>
+        <p className="text-sm text-slate-500 mt-1">
+          Real-time inventory levels, stock health, and catalog valuation.
+        </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-semibold uppercase text-slate-400">Total SKUs</span>
-          <p className="text-2xl font-bold text-slate-900 mt-1">194</p>
-        </div>
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-semibold uppercase text-slate-400">Low Stock Items</span>
-          <p className="text-2xl font-bold text-amber-600 mt-1">12</p>
-        </div>
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-semibold uppercase text-slate-400">Total Valuation</span>
-          <p className="text-2xl font-bold text-emerald-600 mt-1">$48,250</p>
-        </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <MetricStatCard
+          title="Total SKUs"
+          value={isLoading ? '...' : totalSkus.toLocaleString()}
+          subtitle="In warehouse"
+          isLoading={isLoading}
+        />
+        <MetricStatCard
+          title="Inventory Valuation"
+          value={isLoading ? '...' : formattedValuation}
+          isLoading={isLoading}
+        />
+        <MetricStatCard
+          title="Low Stock Alerts"
+          value={isLoading ? '...' : `${lowStockCount} Items`}
+          icon={
+            <AlertTriangle
+              className="w-4 h-4 text-amber-500"
+              aria-hidden="true"
+            />
+          }
+          isLoading={isLoading}
+        />
+        <MetricStatCard
+          title="Out of Stock"
+          value={isLoading ? '...' : `${outOfStockCount} Items`}
+          icon={
+            <AlertCircle
+              className="w-4 h-4 text-rose-500"
+              aria-hidden="true"
+            />
+          }
+          isLoading={isLoading}
+        />
       </div>
+
+      <LowStockWatchlist
+        products={lowStockProducts}
+        isLoading={isLoading}
+      />
+
+      <CategoryBreakdownList
+        categories={categoryBreakdown}
+        isLoading={isLoading}
+      />
     </div>
   )
 }
 
 export default DashboardPage
-
