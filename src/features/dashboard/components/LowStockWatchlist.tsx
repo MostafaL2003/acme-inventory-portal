@@ -1,5 +1,6 @@
 import { useState, useMemo, type JSX } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import { Search, ChevronLeft, ChevronRight, PackageCheck } from 'lucide-react'
 import { StockStatusBadge, type Product } from '@/features/products'
 import { useAppDispatch } from '@/shared/hooks'
@@ -24,6 +25,7 @@ export function LowStockWatchlist({
 }: LowStockWatchlistProps): JSX.Element {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const [filterText, setFilterText] = useState('')
   const [page, setPage] = useState(1)
 
@@ -46,8 +48,9 @@ export function LowStockWatchlist({
       onReorder(product)
       return
     }
-    navigate('/products')
+    queryClient.setQueryData(['product', product.id], product)
     dispatch(openEditDrawer(product.id))
+    navigate('/products')
   }
 
   if (isLoading) {
