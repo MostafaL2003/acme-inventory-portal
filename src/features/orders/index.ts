@@ -1,2 +1,2 @@
-export { OrdersPage } from './components/OrdersPage'
-
+export { OrdersPage } from './pages/OrdersPage'
+export * from './types'

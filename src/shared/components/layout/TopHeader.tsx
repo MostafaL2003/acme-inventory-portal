@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom'
-import { Search, Bell } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { useAppDispatch } from '@/shared/hooks'
 import { openCommandPalette } from '@/shared/store'
+import { NotificationMenu } from './NotificationMenu'
 
 export function TopHeader() {
   const location = useLocation()
@@ -47,18 +48,10 @@ export function TopHeader() {
 
         <div className="h-4 w-px bg-slate-200" />
 
-        <button
-          type="button"
-          aria-label="Notifications"
-          className="relative p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer"
-        >
-          <Bell className="w-4 h-4" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-600 rounded-full" />
-        </button>
+        <NotificationMenu />
       </div>
     </header>
   )
 }
 
 export default TopHeader
-
