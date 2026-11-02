@@ -144,7 +144,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
 #### Tickets
 
 - **TICKET-501: Build Dashboard KPI Cards & Inventory Breakdown**
-  - [ ] Create `useInventoryMetrics.ts` in `src/features/dashboard/hooks/` computing derived KPIs from product data: Total SKU Count, Total Inventory Valuation ($\sum \text{price} \times \text{stock}$), Low Stock Alert Count, and Out-of-Stock Count.
+  - [x] Create `useInventoryMetrics.ts` in `src/features/dashboard/hooks/` computing derived KPIs from product data: Total SKU Count, Total Inventory Valuation ($\sum \text{price} \times \text{stock}$), Low Stock Alert Count, and Out-of-Stock Count.
   - [ ] Build `MetricStatCard.tsx` and `CategoryBreakdownList.tsx` (using pure Tailwind progress bars for category distribution and stock health).
   - [ ] Add a "Low Stock Watchlist" table widget on `/dashboard` with one-click action to open the item in the Edit Drawer or jump to `/products?category=...`.
 - **TICKET-502: Add Route Error Boundaries & Retry Recovery**
