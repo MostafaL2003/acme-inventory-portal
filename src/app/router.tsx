@@ -1,5 +1,9 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { AppShell, NotFoundPage } from '@/shared/components'
+import {
+  AppShell,
+  NotFoundPage,
+  RouteErrorFallback,
+} from '@/shared/components'
 import { DashboardPage } from '@/features/dashboard'
 import { ProductsPage } from '@/features/products'
 import { OrdersPage } from '@/features/orders'
@@ -9,6 +13,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <AppShell />,
+    errorElement: <RouteErrorFallback />,
     children: [
       {
         index: true,
@@ -17,18 +22,22 @@ export const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: <DashboardPage />,
+        errorElement: <RouteErrorFallback />,
       },
       {
         path: 'products',
         element: <ProductsPage />,
+        errorElement: <RouteErrorFallback />,
       },
       {
         path: 'orders',
         element: <OrdersPage />,
+        errorElement: <RouteErrorFallback />,
       },
       {
         path: 'settings',
         element: <SettingsPage />,
+        errorElement: <RouteErrorFallback />,
       },
       {
         path: '*',

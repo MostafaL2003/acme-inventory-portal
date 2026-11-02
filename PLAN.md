@@ -148,8 +148,8 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Build `MetricStatCard.tsx` and `CategoryBreakdownList.tsx` (using pure Tailwind progress bars for category distribution and stock health).
   - [x] Add a "Low Stock Watchlist" table widget on `/dashboard` with one-click action to open the item in the Edit Drawer or jump to `/products?category=...`.
 - **TICKET-502: Add Route Error Boundaries & Retry Recovery**
-  - [ ] Build `AppErrorBoundary.tsx` and React Router `errorElement` (`RouteErrorFallback.tsx`) in `src/shared/components/feedback/`.
-  - [ ] Integrate `useQueryErrorResetBoundary` from TanStack Query so clicking "Try Again" in the error UI resets failed queries and re-fetches cleanly.
+  - [x] Build `AppErrorBoundary.tsx` and React Router `errorElement` (`RouteErrorFallback.tsx`) in `src/shared/components/feedback/`.
+  - [x] Integrate `useQueryErrorResetBoundary` from TanStack Query so clicking "Try Again" in the error UI resets failed queries and re-fetches cleanly.
 - **TICKET-503: Codebase Audit, Rule Enforcement & Build Verification**
   - [ ] Audit every file in `src/` to verify strict adherence to project rules: feature-based encapsulation, single primary component per `.tsx` file, and every file strictly under 200 lines.
   - [ ] Verify keyboard accessibility (`aria-label` on icon buttons, focus trapping in Drawer and `Cmd+K` modal).
