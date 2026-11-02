@@ -23,3 +23,4 @@ export interface InventoryMetrics extends ComputedMetrics {
   readonly isError: boolean
   readonly error: Error | null
 }
+

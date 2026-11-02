@@ -1,46 +1,35 @@
-import { useMemo } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import {
-  useProductsQuery,
-  type Product,
-  type ProductsResponse,
-} from '@/features/products'
-import { calculateInventoryMetrics } from '../utils/metrics'
+  fetchSkuAndValuationMetrics,
+  fetchLowStockMetrics,
+} from '../api'
 import type { InventoryMetrics } from '../types'
 
 export function useInventoryMetrics(): InventoryMetrics {
-  const queryClient = useQueryClient()
-  const { data, isLoading, isError, error } = useProductsQuery({ limit: 100 })
+  const valuationQuery = useQuery({
+    queryKey: ['dashboard', 'sku-valuation'],
+    queryFn: ({ signal }) => fetchSkuAndValuationMetrics(signal),
+  })
 
-  const metrics = useMemo(() => {
-    const productsMap = new Map<number, Product>()
+  const lowStockQuery = useQuery({
+    queryKey: ['dashboard', 'low-stock'],
+    queryFn: ({ signal }) => fetchLowStockMetrics(signal),
+  })
 
-    if (data?.products && Array.isArray(data.products)) {
-      for (const product of data.products) {
-        productsMap.set(product.id, product)
-      }
-    }
-
-    const cachedQueries = queryClient.getQueriesData<ProductsResponse>({
-      queryKey: ['products'],
-    })
-    for (const [, cached] of cachedQueries) {
-      if (cached?.products && Array.isArray(cached.products)) {
-        for (const product of cached.products) {
-          productsMap.set(product.id, product)
-        }
-      }
-    }
-
-    const products = Array.from(productsMap.values())
-    const totalOverride = data?.total
-
-    return calculateInventoryMetrics(products, totalOverride)
-  }, [data, queryClient])
+  const isLoading = valuationQuery.isLoading || lowStockQuery.isLoading
+  const isError = valuationQuery.isError || lowStockQuery.isError
+  const error = valuationQuery.error ?? lowStockQuery.error ?? null
 
   return {
-    ...metrics,
-    isLoading: isLoading && metrics.totalSkus === 0,
+    totalSkus: valuationQuery.data?.totalSkus ?? 0,
+    totalValuation: valuationQuery.data?.totalValuation ?? 0,
+    formattedValuation: valuationQuery.data?.formattedValuation ?? '$0',
+    inStockCount: valuationQuery.data?.inStockCount ?? 0,
+    categoryBreakdown: valuationQuery.data?.categoryBreakdown ?? [],
+    lowStockCount: lowStockQuery.data?.lowStockCount ?? 0,
+    outOfStockCount: lowStockQuery.data?.outOfStockCount ?? 0,
+    lowStockProducts: lowStockQuery.data?.lowStockProducts ?? [],
+    isLoading,
     isError,
     error,
   }
