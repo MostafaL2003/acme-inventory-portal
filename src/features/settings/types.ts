@@ -33,3 +33,4 @@ export const CURRENCY_OPTIONS: readonly { code: AppSettings['currency']; symbol:
 ]
 
 export const SETTINGS_STORAGE_KEY = 'acme_portal_operations_settings'
+
