@@ -3,3 +3,11 @@ export { SidebarNav } from './layout/SidebarNav'
 export { TopHeader } from './layout/TopHeader'
 export { NotFoundPage } from './feedback/NotFoundPage'
 export { FeedbackToast, type FeedbackToastProps } from './feedback/FeedbackToast'
+export {
+  AppErrorBoundary,
+  type AppErrorBoundaryProps,
+} from './feedback/AppErrorBoundary'
+export {
+  RouteErrorFallback,
+  type RouteErrorFallbackProps,
+} from './feedback/RouteErrorFallback'
