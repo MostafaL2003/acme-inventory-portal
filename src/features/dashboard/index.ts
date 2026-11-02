@@ -1,4 +1,12 @@
 export { DashboardPage } from './components/DashboardPage'
+export {
+  MetricStatCard,
+  type MetricStatCardProps,
+} from './components/MetricStatCard'
+export {
+  CategoryBreakdownList,
+  type CategoryBreakdownListProps,
+} from './components/CategoryBreakdownList'
 export { useInventoryMetrics } from './hooks/useInventoryMetrics'
 export {
   fetchSkuAndValuationMetrics,
