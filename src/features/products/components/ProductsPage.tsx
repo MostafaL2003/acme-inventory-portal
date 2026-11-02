@@ -13,6 +13,7 @@ import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
 import { PaginationBar } from './PaginationBar'
 import { EditProductDrawer } from './EditProductDrawer'
+import { BatchSelectionDock } from './BatchSelectionDock'
 import type { Product, ProductsResponse } from '../types'
 
 interface ToastState {
@@ -128,6 +129,8 @@ export function ProductsPage() {
         isSaving={updateProductMutation.isPending}
       />
 
+      <BatchSelectionDock />
+
       {toast && (
         <FeedbackToast
           type={toast.type}
@@ -140,4 +143,3 @@ export function ProductsPage() {
 }
 
 export default ProductsPage
-
