@@ -1,5 +1,5 @@
 import { type JSX } from 'react'
-import { Check, EyeOff, Upload, Trash2, X } from 'lucide-react'
+import { Check, EyeOff, Upload, Trash2, X, Loader2 } from 'lucide-react'
 import { useAppSelector } from '@/shared/hooks'
 
 export interface BatchSelectionDockProps {
@@ -36,7 +36,11 @@ export function BatchSelectionDock({
     >
       <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-2xl whitespace-nowrap overflow-x-auto">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/80 border border-blue-500/40 text-xs font-medium text-slate-100">
-          <Check className="w-3.5 h-3.5 text-blue-400 shrink-0" aria-hidden="true" />
+          {isProcessing ? (
+            <Loader2 className="w-3.5 h-3.5 text-blue-400 animate-spin shrink-0" aria-hidden="true" />
+          ) : (
+            <Check className="w-3.5 h-3.5 text-blue-400 shrink-0" aria-hidden="true" />
+          )}
           <span>
             {count} {count === 1 ? 'item' : 'items'} selected
           </span>
@@ -93,4 +97,3 @@ export function BatchSelectionDock({
 }
 
 export default BatchSelectionDock
-

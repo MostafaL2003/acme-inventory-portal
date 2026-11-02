@@ -40,6 +40,11 @@ export {
   type UpdateProductVariables,
 } from './hooks/useUpdateProductMutation'
 export {
+  useBatchProductActions,
+  type UseBatchProductActionsOptions,
+  type UseBatchProductActionsResult,
+} from './hooks/useBatchProductActions'
+export {
   selectionSlice,
   selectionReducer,
   toggleSelectId,
@@ -47,4 +52,3 @@ export {
   clearSelection,
   type SelectionState,
 } from './store/selectionSlice'
-

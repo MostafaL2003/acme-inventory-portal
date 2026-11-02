@@ -121,7 +121,7 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Highlight selected table rows with a subtle Tailwind accent background and keep selection intact across pagination swaps.
 - **TICKET-403: Build Floating Batch Selection Dock & Bulk Actions**
   - [x] Create `BatchSelectionDock.tsx` anchored to the bottom of the viewport whenever `selectedProductIds.length > 0`.
-  - [ ] Implement batch actions: "Mark Out of Stock" (`stock: 0`), "Bulk Restock (+50)", and "Delete Selected" using parallel DummyJSON mutation calls and updating the TanStack Query cache.
+  - [x] Implement batch actions: "Mark Out of Stock" (`stock: 0`), "Bulk Restock (+50)", and "Delete Selected" using parallel DummyJSON mutation calls and updating the TanStack Query cache.
   - [ ] Include a "Clear Selection" button and automatic selection reset after a batch operation succeeds.
 - **TICKET-404: Implement Global `Cmd+K` / `Ctrl+K` Command Palette**
   - [ ] Create `useCommandPaletteShortcut.ts` listening for `keydown` (`(e.metaKey || e.ctrlKey) && e.key === 'k'`) to toggle `isCommandPaletteOpen`.
