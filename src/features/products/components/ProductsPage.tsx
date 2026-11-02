@@ -4,6 +4,7 @@ import { Plus, ChevronDown } from 'lucide-react'
 import { FeedbackToast } from '@/shared/components'
 import { useAppDispatch, useAppSelector } from '@/shared/hooks'
 import { openEditDrawer, closeEditDrawer } from '@/shared/store'
+import { clearSelection } from '../store/selectionSlice'
 import { DEFAULT_CATEGORY_SLUGS } from '../constants'
 import { useUrlProductFilters } from '../hooks/useUrlProductFilters'
 import { useProductsQuery } from '../hooks/useProductsQuery'
@@ -145,6 +146,7 @@ export function ProductsPage() {
         onMarkOutOfStock={markOutOfStock}
         onBulkRestock={bulkRestock}
         onDeleteSelected={deleteSelected}
+        onClearSelection={() => dispatch(clearSelection())}
       />
 
       {toast && (

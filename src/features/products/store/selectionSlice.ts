@@ -39,6 +39,13 @@ export const selectionSlice = createSlice({
       }
       state.selectedProductIds = uniqueValidIds
     },
+    deselectIds: (state, action: PayloadAction<readonly number[]>): void => {
+      if (state.selectedProductIds.length === 0 || action.payload.length === 0) return
+      const removeSet = new Set(action.payload)
+      state.selectedProductIds = state.selectedProductIds.filter(
+        (id) => !removeSet.has(id),
+      )
+    },
     clearSelection: (state): void => {
       if (state.selectedProductIds.length === 0) return
       state.selectedProductIds = []
@@ -46,8 +53,8 @@ export const selectionSlice = createSlice({
   },
 })
 
-export const { toggleSelectId, selectAllIds, clearSelection } = selectionSlice.actions
+export const { toggleSelectId, selectAllIds, deselectIds, clearSelection } =
+  selectionSlice.actions
 export const selectionReducer = selectionSlice.reducer
 
 export default selectionReducer
-

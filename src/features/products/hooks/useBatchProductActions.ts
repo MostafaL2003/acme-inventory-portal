@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react'
 import { useQueryClient, type QueryClient } from '@tanstack/react-query'
+import { useAppDispatch } from '@/shared/hooks'
 import { updateProduct, deleteProduct } from '../api'
+import { deselectIds } from '../store/selectionSlice'
 import type { Product, ProductsResponse } from '../types'
 
 export interface UseBatchProductActionsOptions {
@@ -34,6 +36,7 @@ export function useBatchProductActions(
   options?: UseBatchProductActionsOptions,
 ): UseBatchProductActionsResult {
   const queryClient = useQueryClient()
+  const dispatch = useAppDispatch()
   const [isProcessing, setIsProcessing] = useState(false)
 
   const markOutOfStock = useCallback(
@@ -149,6 +152,8 @@ export function useBatchProductActions(
           },
         )
 
+        dispatch(deselectIds(ids))
+
         const label = ids.length === 1 ? '1 product' : `${ids.length} products`
         options?.onSuccess?.(`Deleted ${label} successfully.`)
       } catch (err) {
@@ -158,7 +163,7 @@ export function useBatchProductActions(
         setIsProcessing(false)
       }
     },
-    [queryClient, options],
+    [queryClient, dispatch, options],
   )
 
   return {

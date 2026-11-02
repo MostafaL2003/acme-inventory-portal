@@ -49,6 +49,7 @@ export {
   selectionReducer,
   toggleSelectId,
   selectAllIds,
+  deselectIds,
   clearSelection,
   type SelectionState,
 } from './store/selectionSlice'

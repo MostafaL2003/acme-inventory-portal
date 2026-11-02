@@ -1,6 +1,7 @@
 import { type JSX } from 'react'
 import { Check, EyeOff, Upload, Trash2, X, Loader2 } from 'lucide-react'
-import { useAppSelector } from '@/shared/hooks'
+import { useAppDispatch, useAppSelector } from '@/shared/hooks'
+import { clearSelection as clearSelectionAction } from '../store/selectionSlice'
 
 export interface BatchSelectionDockProps {
   readonly selectedIds?: readonly number[]
@@ -19,6 +20,7 @@ export function BatchSelectionDock({
   onDeleteSelected,
   onClearSelection,
 }: BatchSelectionDockProps): JSX.Element | null {
+  const dispatch = useAppDispatch()
   const storeSelectedIds = useAppSelector(
     (state) => state.selection.selectedProductIds,
   )
@@ -27,6 +29,14 @@ export function BatchSelectionDock({
   const count = activeIds.length
 
   if (count === 0) return null
+
+  const handleClear = () => {
+    if (onClearSelection) {
+      onClearSelection()
+    } else {
+      dispatch(clearSelectionAction())
+    }
+  }
 
   return (
     <div
@@ -85,7 +95,7 @@ export function BatchSelectionDock({
         <button
           type="button"
           disabled={isProcessing}
-          onClick={onClearSelection}
+          onClick={handleClear}
           className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <X className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
