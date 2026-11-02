@@ -2,6 +2,7 @@ import { AlertTriangle, AlertCircle } from 'lucide-react'
 import { useInventoryMetrics } from '../hooks/useInventoryMetrics'
 import { MetricStatCard } from './MetricStatCard'
 import { CategoryBreakdownList } from './CategoryBreakdownList'
+import { LowStockWatchlist } from './LowStockWatchlist'
 
 export function DashboardPage() {
   const {
@@ -10,6 +11,7 @@ export function DashboardPage() {
     lowStockCount,
     outOfStockCount,
     categoryBreakdown,
+    lowStockProducts,
     isLoading,
   } = useInventoryMetrics()
 
@@ -59,6 +61,11 @@ export function DashboardPage() {
           isLoading={isLoading}
         />
       </div>
+
+      <LowStockWatchlist
+        products={lowStockProducts}
+        isLoading={isLoading}
+      />
 
       <CategoryBreakdownList
         categories={categoryBreakdown}

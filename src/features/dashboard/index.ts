@@ -7,6 +7,10 @@ export {
   CategoryBreakdownList,
   type CategoryBreakdownListProps,
 } from './components/CategoryBreakdownList'
+export {
+  LowStockWatchlist,
+  type LowStockWatchlistProps,
+} from './components/LowStockWatchlist'
 export { useInventoryMetrics } from './hooks/useInventoryMetrics'
 export {
   fetchSkuAndValuationMetrics,
