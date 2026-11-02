@@ -1,8 +1,14 @@
 import { Outlet } from 'react-router-dom'
+import {
+  CommandPaletteModal,
+  useCommandPaletteShortcut,
+} from '@/features/command-palette'
 import { SidebarNav } from './SidebarNav'
 import { TopHeader } from './TopHeader'
 
 export function AppShell() {
+  useCommandPaletteShortcut()
+
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-slate-50">
       <SidebarNav />
@@ -12,6 +18,7 @@ export function AppShell() {
           <Outlet />
         </main>
       </div>
+      <CommandPaletteModal />
     </div>
   )
 }

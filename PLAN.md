@@ -124,8 +124,8 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Implement batch actions: "Mark Out of Stock" (`stock: 0`), "Bulk Restock (+50)", and "Delete Selected" using parallel DummyJSON mutation calls and updating the TanStack Query cache.
   - [x] Include a "Clear Selection" button and automatic selection reset after a batch operation succeeds.
 - **TICKET-404: Implement Global `Cmd+K` / `Ctrl+K` Command Palette**
-  - [ ] Create `useCommandPaletteShortcut.ts` listening for `keydown` (`(e.metaKey || e.ctrlKey) && e.key === 'k'`) to toggle `isCommandPaletteOpen`.
-  - [ ] Build `CommandPaletteModal.tsx` with instant keyboard navigation (`ArrowUp`, `ArrowDown`, `Enter`, `Escape`) to jump to routes (`/dashboard`, `/products`), filter quick presets (e.g., "Filter: Low Stock"), or open a searched product directly in the Edit Drawer.
+  - [x] Create `useCommandPaletteShortcut.ts` listening for `keydown` (`(e.metaKey || e.ctrlKey) && e.key === 'k'`) to toggle `isCommandPaletteOpen`.
+  - [x] Build `CommandPaletteModal.tsx` with instant keyboard navigation (`ArrowUp`, `ArrowDown`, `Enter`, `Escape`) to jump to routes (`/dashboard`, `/products`), filter quick presets (e.g., "Filter: Low Stock"), or open a searched product directly in the Edit Drawer.
 
 #### Definition of Done (Acceptance Criteria)
 
