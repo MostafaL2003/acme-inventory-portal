@@ -74,3 +74,4 @@ describe('uiSlice', () => {
     expect(state.isCommandPaletteOpen).toBe(false)
   })
 })
+

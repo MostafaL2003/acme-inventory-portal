@@ -64,3 +64,4 @@ describe('selectionSlice', () => {
     expect(state.selectedProductIds).toEqual([])
   })
 })
+

@@ -99,3 +99,4 @@ describe('Batch Cache Updates in TanStack Query', () => {
     expect(page1?.total).toBe(2)
   })
 })
+
