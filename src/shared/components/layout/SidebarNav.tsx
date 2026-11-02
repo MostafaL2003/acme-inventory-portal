@@ -57,6 +57,7 @@ export function SidebarNav() {
       <div className="p-3 border-t border-slate-800 mt-auto">
         <button
           type="button"
+          aria-label="User account menu"
           className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-slate-800/70 transition-colors text-left group"
         >
           <div className="flex items-center gap-3 min-w-0">

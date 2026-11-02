@@ -122,7 +122,7 @@ export function LowStockWatchlist({
                   <td className="py-3 px-4 text-slate-500 whitespace-nowrap">{getWarehouseLocation(product.id)}</td>
                   <td className="py-3 px-4"><StockStatusBadge stock={product.stock} /></td>
                   <td className="py-3 px-4 text-right">
-                    <button type="button" onClick={() => handleAction(product)} className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium transition-colors shadow-xs cursor-pointer">
+                    <button type="button" onClick={() => handleAction(product)} aria-label={`Reorder ${product.title}`} className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium transition-colors shadow-xs cursor-pointer">
                       Reorder
                     </button>
                   </td>

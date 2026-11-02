@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Plus, ChevronDown } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { FeedbackToast } from '@/shared/components'
 import { useAppDispatch, useAppSelector } from '@/shared/hooks'
 import { openEditDrawer, closeEditDrawer } from '@/shared/store'
@@ -81,6 +81,13 @@ export function ProductsPage() {
 
   const totalItems = productsData?.total ?? 0
 
+  const handleAddProduct = () => {
+    setToast({
+      type: 'error',
+      message: 'Catalog creation is restricted in this demo view.',
+    })
+  }
+
   const handleSaveProduct = (updatedFields: Partial<Product>) => {
     if (!editingProduct || updateProductMutation.isPending) return
 
@@ -119,18 +126,12 @@ export function ProductsPage() {
         <div className="flex items-center gap-3">
           <button
             type="button"
+            onClick={handleAddProduct}
+            aria-label="Add new product"
             className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg shadow-xs transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Add Product</span>
-          </button>
-
-          <button
-            type="button"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-700 font-medium text-sm rounded-lg border border-slate-300 shadow-xs transition-colors cursor-pointer"
-          >
-            <span>Bulk Actions</span>
-            <ChevronDown className="w-4 h-4 text-slate-400" />
           </button>
         </div>
       </div>

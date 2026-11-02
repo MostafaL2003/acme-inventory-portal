@@ -33,6 +33,7 @@ export function TopHeader() {
         <button
           type="button"
           onClick={() => dispatch(openCommandPalette())}
+          aria-label="Open command palette"
           className="flex items-center gap-3 px-3.5 py-1.5 text-xs text-slate-400 bg-slate-50 border border-slate-200 rounded-lg hover:border-slate-300 hover:bg-slate-100 transition-colors cursor-pointer w-64 justify-between"
         >
           <div className="flex items-center gap-2">
