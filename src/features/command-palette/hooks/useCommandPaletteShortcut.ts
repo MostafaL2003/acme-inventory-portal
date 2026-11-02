@@ -21,3 +21,4 @@ export function useCommandPaletteShortcut(): void {
 }
 
 export default useCommandPaletteShortcut
+
