@@ -4,15 +4,18 @@ import { Plus, ChevronDown } from 'lucide-react'
 import { FeedbackToast } from '@/shared/components'
 import { useAppDispatch, useAppSelector } from '@/shared/hooks'
 import { openEditDrawer, closeEditDrawer } from '@/shared/store'
+import { clearSelection } from '../store/selectionSlice'
 import { DEFAULT_CATEGORY_SLUGS } from '../constants'
 import { useUrlProductFilters } from '../hooks/useUrlProductFilters'
 import { useProductsQuery } from '../hooks/useProductsQuery'
 import { useCategoriesQuery } from '../hooks/useCategoriesQuery'
 import { useUpdateProductMutation } from '../hooks/useUpdateProductMutation'
+import { useBatchProductActions } from '../hooks/useBatchProductActions'
 import { ProductTable } from './ProductTable'
 import { ProductFilterToolbar } from './ProductFilterToolbar'
 import { PaginationBar } from './PaginationBar'
 import { EditProductDrawer } from './EditProductDrawer'
+import { BatchSelectionDock } from './BatchSelectionDock'
 import type { Product, ProductsResponse } from '../types'
 
 interface ToastState {
@@ -30,6 +33,16 @@ export function ProductsPage() {
   const { data: categories = DEFAULT_CATEGORY_SLUGS } = useCategoriesQuery()
   const updateProductMutation = useUpdateProductMutation()
   const [toast, setToast] = useState<ToastState | null>(null)
+
+  const { isProcessing, markOutOfStock, bulkRestock, deleteSelected } =
+    useBatchProductActions({
+      onSuccess: (message) => setToast({ type: 'success', message }),
+      onError: (err) =>
+        setToast({
+          type: 'error',
+          message: err.message || 'Batch action failed. Please try again.',
+        }),
+    })
 
   const editingProduct = useMemo<Product | null>(() => {
     if (activeEditProductId === null) return null
@@ -128,6 +141,14 @@ export function ProductsPage() {
         isSaving={updateProductMutation.isPending}
       />
 
+      <BatchSelectionDock
+        isProcessing={isProcessing}
+        onMarkOutOfStock={markOutOfStock}
+        onBulkRestock={bulkRestock}
+        onDeleteSelected={deleteSelected}
+        onClearSelection={() => dispatch(clearSelection())}
+      />
+
       {toast && (
         <FeedbackToast
           type={toast.type}
@@ -140,4 +161,3 @@ export function ProductsPage() {
 }
 
 export default ProductsPage
-

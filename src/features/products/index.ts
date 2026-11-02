@@ -7,6 +7,7 @@ export { EmptyProductsState } from './components/EmptyProductsState'
 export { ProductFilterToolbar } from './components/ProductFilterToolbar'
 export { PaginationBar, type PaginationBarProps } from './components/PaginationBar'
 export { EditProductDrawer, type EditProductDrawerProps } from './components/EditProductDrawer'
+export { BatchSelectionDock, type BatchSelectionDockProps } from './components/BatchSelectionDock'
 export type {
   Product,
   ProductsResponse,
@@ -39,10 +40,16 @@ export {
   type UpdateProductVariables,
 } from './hooks/useUpdateProductMutation'
 export {
+  useBatchProductActions,
+  type UseBatchProductActionsOptions,
+  type UseBatchProductActionsResult,
+} from './hooks/useBatchProductActions'
+export {
   selectionSlice,
   selectionReducer,
   toggleSelectId,
   selectAllIds,
+  deselectIds,
   clearSelection,
   type SelectionState,
 } from './store/selectionSlice'
