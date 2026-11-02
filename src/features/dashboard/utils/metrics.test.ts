@@ -92,3 +92,4 @@ describe('calculateInventoryMetrics', () => {
     expect(result.categoryBreakdown[0].percentage).toBe(50)
   })
 })
+

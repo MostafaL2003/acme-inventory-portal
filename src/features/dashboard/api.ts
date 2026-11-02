@@ -103,3 +103,4 @@ export async function fetchLowStockMetrics(
     lowStockProducts: computed.lowStockProducts,
   }
 }
+
