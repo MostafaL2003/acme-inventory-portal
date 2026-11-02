@@ -151,9 +151,9 @@ AFTER EVERY COMMIT CHECK THE PLAN.MD FILE AND CHECK THE FINISHED TASK
   - [x] Build `AppErrorBoundary.tsx` and React Router `errorElement` (`RouteErrorFallback.tsx`) in `src/shared/components/feedback/`.
   - [x] Integrate `useQueryErrorResetBoundary` from TanStack Query so clicking "Try Again" in the error UI resets failed queries and re-fetches cleanly.
 - **TICKET-503: Codebase Audit, Rule Enforcement & Build Verification**
-  - [ ] Audit every file in `src/` to verify strict adherence to project rules: feature-based encapsulation, single primary component per `.tsx` file, and every file strictly under 200 lines.
-  - [ ] Verify keyboard accessibility (`aria-label` on icon buttons, focus trapping in Drawer and `Cmd+K` modal).
-  - [ ] Run `npm run lint` and `npm run build` (`tsc -b && vite build`) and resolve all TypeScript or linter warnings.
+  - [x] Audit every file in `src/` to verify strict adherence to project rules: feature-based encapsulation, single primary component per `.tsx` file, and every file strictly under 200 lines.
+  - [x] Verify keyboard accessibility (`aria-label` on icon buttons, focus trapping in Drawer and `Cmd+K` modal).
+  - [x] Run `npm run lint` and `npm run build` (`tsc -b && vite build`) and resolve all TypeScript or linter warnings.
 
 #### Definition of Done (Acceptance Criteria)
 
