@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import { useQueryClient, type QueryClient } from '@tanstack/react-query'
 import { useAppDispatch } from '@/shared/hooks'
 import { updateProduct, deleteProduct } from '../api'
-import { deselectIds } from '../store/selectionSlice'
+import { clearSelection, deselectIds } from '../store/selectionSlice'
 import type { Product, ProductsResponse } from '../types'
 
 export interface UseBatchProductActionsOptions {
@@ -65,6 +65,8 @@ export function useBatchProductActions(
           },
         )
 
+        dispatch(clearSelection())
+
         const label = ids.length === 1 ? '1 product' : `${ids.length} products`
         options?.onSuccess?.(`Marked ${label} as out of stock.`)
       } catch (err) {
@@ -74,7 +76,7 @@ export function useBatchProductActions(
         setIsProcessing(false)
       }
     },
-    [queryClient, options],
+    [queryClient, dispatch, options],
   )
 
   const bulkRestock = useCallback(
@@ -115,6 +117,8 @@ export function useBatchProductActions(
           },
         )
 
+        dispatch(clearSelection())
+
         const label = ids.length === 1 ? '1 product' : `${ids.length} products`
         options?.onSuccess?.(`Restocked ${label} (+${amount} stock each).`)
       } catch (err) {
@@ -124,7 +128,7 @@ export function useBatchProductActions(
         setIsProcessing(false)
       }
     },
-    [queryClient, options],
+    [queryClient, dispatch, options],
   )
 
   const deleteSelected = useCallback(
