@@ -1,5 +1,9 @@
 # Acme Inventory Portal
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://acme-inventory-portal.vercel.app/products)
+
+> 🚀 **Live Production Demo**: [https://acme-inventory-portal.vercel.app/products](https://acme-inventory-portal.vercel.app/products)
+
 An enterprise-grade B2B Inventory Management Single-Page Application (SPA) engineered with **React 19**, **TypeScript 6**, **Vite 8**, **Tailwind CSS v4**, **TanStack Query v5**, **Redux Toolkit**, and **React Router v7**.
 
 Designed for high-volume warehouse and catalog operations, Acme Inventory Portal separates **URL state**, **server cache state**, and **ephemeral client UI state** into clean, deterministic layers with strict architectural boundaries and WCAG 2.1 AA accessibility compliance.
